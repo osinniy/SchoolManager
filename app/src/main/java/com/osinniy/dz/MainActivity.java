@@ -7,23 +7,50 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
+import com.osinniy.dz.obj.DZ;
+import com.osinniy.dz.ui.dashboard.DZAdapter;
+import com.osinniy.dz.ui.dashboard.DZPresenter;
+import com.osinniy.dz.util.OnItemClickListener;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.List;
 
-    private FirebaseAuth auth = FirebaseAuth.getInstance();
+public class MainActivity extends AppCompatActivity implements DZPresenter.Listener, OnItemClickListener<DZ> {
+
+    private SwipeRefreshLayout refresh;
+    private DZAdapter adapter;
+    private DZPresenter presenter = new DZPresenter(this);
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        initNavView();
 
+        setContentView(R.layout.activity_main);
+
+        initNavView();
+        initRecyclerView();
+        initRefreshLayout();
 
     }
+
+
+    @Override
+    public void onItemClicked(DZ item) {
+
+    }
+
+
+    @Override
+    public void onDZLoaded(List<DZ> dzList) {
+        refresh.setRefreshing(false);
+        adapter.submitList(dzList);
+    }
+
 
 
     private void initNavView() {
@@ -33,6 +60,20 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+    }
+
+    private void initRecyclerView() {
+        RecyclerView recyclerView = findViewById(R.id.dz_recycler);
+        adapter = new DZAdapter(getLayoutInflater(), this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(
+                new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+    }
+
+    private void initRefreshLayout() {
+        refresh = findViewById(R.id.swipe_refresh);
+        refresh.setRefreshing(true);
+        refresh.setOnRefreshListener(presenter::loadDZ);
     }
 
 }

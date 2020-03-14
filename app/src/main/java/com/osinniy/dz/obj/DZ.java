@@ -3,6 +3,7 @@ package com.osinniy.dz.obj;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
@@ -20,7 +21,13 @@ public class DZ {
     private boolean isChanged = false;
 
 
-    private DZ() {}
+    public DZ(Map<String, String> homework, String time, String id, String uid, boolean isChanged) {
+        this.homework = homework;
+        this.time = time;
+        this.id = id;
+        this.uid = uid;
+        this.isChanged = isChanged;
+    }
 
     public DZ(Map<String, String> homework, String id, String uid) {
         this.homework = homework;
@@ -36,6 +43,10 @@ public class DZ {
         isChanged = true;
     }
 
+
+    public Iterator<String> getSubjIterator() {
+        return homework.keySet().iterator();
+    }
 
     public String getId() {
         return id;
@@ -82,44 +93,6 @@ public class DZ {
     @Override
     public int hashCode() {
         return Objects.hash(timeDateFormatter, time, homework, id, uid, isChanged);
-    }
-
-
-    public static class Builder {
-        private DZ newDZ;
-
-        public Builder() {
-            newDZ = new DZ();
-        }
-
-        public Builder withHomework(Map<String, String> homework) {
-            newDZ.homework = homework;
-            return this;
-        }
-
-        public Builder withUser(String uid) {
-            newDZ.uid = uid;
-            return this;
-        }
-
-        public Builder withTime(String time) {
-            newDZ.time = time;
-            return this;
-        }
-
-        public Builder withId(String id) {
-            newDZ.id = id;
-            return this;
-        }
-
-        public Builder withChangedFlag(boolean isChanged) {
-            newDZ.isChanged = isChanged;
-            return this;
-        }
-
-        public DZ build() {
-            return newDZ;
-        }
     }
 
 }

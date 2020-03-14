@@ -16,7 +16,7 @@ import java.util.List;
 
 public class DZPresenter extends BasePresenter<DZPresenter.Listener> implements DZDao.GetDZListener {
 
-    private final DZDao DZDao = DZDaoFactory.getInstance().getDao();
+    private final DZDao dao = DZDaoFactory.getInstance().getDao();
 
     private ListenerRegistration registration;
 
@@ -27,14 +27,14 @@ public class DZPresenter extends BasePresenter<DZPresenter.Listener> implements 
 
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    public void loadNotes() {
-        registration = DZDao.listenNotes(new WeakReference<>(this));
+    public void loadDZ() {
+        registration = dao.listenNotes(new WeakReference<>(this));
     }
 
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    public void stopLoadNotes() {
-        registration = DZDao.listenNotes(new WeakReference<>(this));
+    public void stopLoadDZ() {
+        registration = dao.listenNotes(new WeakReference<>(this));
     }
 
 
@@ -51,7 +51,7 @@ public class DZPresenter extends BasePresenter<DZPresenter.Listener> implements 
 
 
     public interface Listener extends LifecycleOwner {
-        void onDZLoaded(List<DZ> notes);
+        void onDZLoaded(List<DZ> dzList);
     }
 
 }

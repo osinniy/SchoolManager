@@ -8,7 +8,6 @@ import com.osinniy.dz.util.Tools;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 
 @SuppressWarnings("unchecked")
@@ -28,26 +27,24 @@ public class DZMapper {
 
 
     public static DZ restoreInstanceFromMap(@NonNull Map<String, Object> map) {
-        DZ.Builder newDZ = new DZ.Builder();
-
-        if (map.containsKey(Tools.HOMEWORK))   newDZ.withHomework((Map<String, String>) map.get(Tools.HOMEWORK));
-        if (map.containsKey(Tools.TIME))       newDZ.withTime(String.valueOf(map.get(Tools.TIME)));
-        if (map.containsKey(Tools.UID))        newDZ.withUser(String.valueOf(map.get(Tools.UID)));
-        if (map.containsKey(Tools.ID))         newDZ.withId(String.valueOf(map.get(Tools.ID)));
-        if (map.containsKey(Tools.IS_CHANGED)) newDZ.withChangedFlag((boolean) map.get(Tools.IS_CHANGED));
-
-        return newDZ.build();
+        return new DZ(
+                (Map<String, String>) map.get(Tools.HOMEWORK),
+                String.valueOf(map.get(Tools.TIME)),
+                String.valueOf(map.get(Tools.ID)),
+                String.valueOf(map.get(Tools.UID)),
+                (boolean) map.get(Tools.IS_CHANGED)
+        );
     }
 
 
-    public static DZ restoreInstanceFromDocument(@NonNull DocumentSnapshot document) {
-        return new DZ.Builder()
-                .withId(document.getId())
-                .withHomework((Map<String, String>) document.get(Tools.HOMEWORK))
-                .withUser(document.getString(Tools.ID))
-                .withTime(document.getString(Tools.TIME))
-                .withChangedFlag(Objects.requireNonNull(document.getBoolean(Tools.IS_CHANGED)))
-                .build();
+    public static DZ restoreInstanceFromDocument(@NonNull DocumentSnapshot doc) {
+        return new DZ(
+                (Map<String, String>) doc.get(Tools.HOMEWORK),
+                doc.getString(Tools.TIME),
+                doc.getString(Tools.ID),
+                doc.getString(Tools.UID),
+                (boolean) doc.get(Tools.IS_CHANGED)
+        );
     }
 
 }

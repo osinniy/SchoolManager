@@ -21,7 +21,7 @@ public interface DZDao {
 
     interface GetDZListener {
 
-        void onDZLoaded(List<DZ> dzs);
+        void onDZLoaded(List<DZ> dzList);
 
         void onDZLoadFailed();
 

@@ -32,10 +32,10 @@ public class DZAdapter extends ListAdapter<DZ, DZAdapter.DZViewHolder> {
     private final OnItemClickListener<DZ> dzClickListener;
 
 
-    public DZAdapter(LayoutInflater layoutInflater, OnItemClickListener<DZ> noteClickListener) {
+    public DZAdapter(LayoutInflater layoutInflater, OnItemClickListener<DZ> dzClickListener) {
         super(COMPARATOR);
         this.layoutInflater = layoutInflater;
-        this.dzClickListener = noteClickListener;
+        this.dzClickListener = dzClickListener;
     }
 
 
@@ -43,7 +43,7 @@ public class DZAdapter extends ListAdapter<DZ, DZAdapter.DZViewHolder> {
     @Override
     public DZViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new DZViewHolder(
-                layoutInflater.inflate(R.layout.activity_notes_item_note, parent, false));
+                layoutInflater.inflate(R.layout.activity_main_item_dz, parent, false));
     }
 
 
@@ -62,15 +62,15 @@ public class DZAdapter extends ListAdapter<DZ, DZAdapter.DZViewHolder> {
 
         private DZViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvTitle = itemView.findViewById(R.id.title);
-            tvDescription = itemView.findViewById(R.id.description);
+            tvTitle = itemView.findViewById(R.id.title_1);
+            tvDescription = itemView.findViewById(R.id.text_1);
             itemView.setOnClickListener(v -> dzClickListener.onItemClicked(binded));
         }
 
         private void bind(DZ dz) {
-//            binded = dz;
-//            tvTitle.setText(dz.getTitle());
-//            tvDescription.setText(dz.getText());
+            binded = dz;
+            tvTitle.setText("title");
+            tvDescription.setText("text");
         }
 
     }

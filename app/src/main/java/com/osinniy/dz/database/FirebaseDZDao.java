@@ -10,8 +10,8 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.osinniy.dz.obj.DZ;
 import com.osinniy.dz.obj.mapper.DZMapper;
-import com.osinniy.dz.util.Tools;
 import com.osinniy.dz.util.Schedulers;
+import com.osinniy.dz.util.Tools;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -49,9 +49,9 @@ class FirebaseDZDao implements DZDao {
                 .addSnapshotListener(Schedulers.getIo(), (queryDocumentSnapshots, e) -> {
 
                     if (queryDocumentSnapshots != null) {
-                        List<DZ> notes = parseDZ(queryDocumentSnapshots.getDocuments());
+                        List<DZ> dzList = parseDZ(queryDocumentSnapshots.getDocuments());
                         GetDZListener listener = listenerRef.get();
-                        if (listener != null) listener.onDZLoaded(notes);
+                        if (listener != null) listener.onDZLoaded(dzList);
                     }
                     else if (e != null) {
                         GetDZListener listener = listenerRef.get();
@@ -71,7 +71,7 @@ class FirebaseDZDao implements DZDao {
 
 
     private Query getUserDZQuery() {
-        return firestore.collection(Tools.COLLECTION)
+        return firestore.collection(Tools.COLLECTION_DZ)
                 .whereEqualTo(Tools.UID, Objects.requireNonNull(user).getUid());
     }
 
@@ -84,7 +84,7 @@ class FirebaseDZDao implements DZDao {
             user.put(Tools.NAME, newUser.getDisplayName());
             user.put(Tools.UID, newUser.getUid());
 
-            firestore.collection("users").add(user);
+            firestore.collection(Tools.COLLECTION_USERS).add(user);
         });
 
     }
@@ -92,13 +92,13 @@ class FirebaseDZDao implements DZDao {
 
     @Override
     public void addDZ(DZ dz) {
-        firestore.collection(Tools.COLLECTION).document().set(DZMapper.createMap(dz));
+        firestore.collection(Tools.COLLECTION_DZ).document().set(DZMapper.createMap(dz));
     }
 
 
     @Override
     public void deleteDZ(DZ dz) {
-        firestore.collection(Tools.COLLECTION).document(dz.getId()).delete();
+        firestore.collection(Tools.COLLECTION_DZ).document(dz.getId()).delete();
     }
 
 }
