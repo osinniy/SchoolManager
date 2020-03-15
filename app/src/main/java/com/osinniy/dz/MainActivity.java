@@ -13,13 +13,15 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.osinniy.dz.obj.DZ;
+import com.osinniy.dz.obj.Timetable;
 import com.osinniy.dz.ui.dashboard.DZAdapter;
 import com.osinniy.dz.ui.dashboard.DZPresenter;
 import com.osinniy.dz.util.OnItemClickListener;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements DZPresenter.Listener, OnItemClickListener<DZ> {
+public class MainActivity extends AppCompatActivity
+        implements DZPresenter.Listener, OnItemClickListener<DZ> {
 
     private SwipeRefreshLayout refresh;
     private DZAdapter adapter;
@@ -36,6 +38,8 @@ public class MainActivity extends AppCompatActivity implements DZPresenter.Liste
         initRecyclerView();
         initRefreshLayout();
 
+        Timetable.refresh();
+        presenter.loadDZ();
     }
 
 
