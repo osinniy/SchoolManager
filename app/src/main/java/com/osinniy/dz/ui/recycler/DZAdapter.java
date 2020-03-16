@@ -1,4 +1,4 @@
-package com.osinniy.dz.ui.dashboard;
+package com.osinniy.dz.ui.recycler;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.osinniy.dz.R;
-import com.osinniy.dz.obj.DZ;
+import com.osinniy.dz.obj.dz.DZ;
 import com.osinniy.dz.util.OnItemClickListener;
 
 public class DZAdapter extends ListAdapter<DZ, DZAdapter.DZViewHolder> {

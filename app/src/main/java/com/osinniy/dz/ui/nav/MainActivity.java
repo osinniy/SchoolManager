@@ -1,5 +1,6 @@
-package com.osinniy.dz;
+package com.osinniy.dz.ui.nav;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,10 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.osinniy.dz.obj.DZ;
-import com.osinniy.dz.obj.Timetable;
-import com.osinniy.dz.ui.dashboard.DZAdapter;
-import com.osinniy.dz.ui.dashboard.DZPresenter;
+import com.osinniy.dz.R;
+import com.osinniy.dz.obj.dz.DZ;
+import com.osinniy.dz.obj.timetable.Timetable;
+import com.osinniy.dz.ui.recycler.DZAdapter;
+import com.osinniy.dz.ui.recycler.DZPresenter;
 import com.osinniy.dz.util.OnItemClickListener;
 
 import java.util.List;
@@ -32,9 +34,11 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
+//        TODO change to main_activity
+        setContentView(R.layout.fragment_dashboard);
 
-        initNavView();
+//        TODO repair this method
+//        initNavView();
         initRecyclerView();
         initRefreshLayout();
 
@@ -80,4 +84,10 @@ public class MainActivity extends AppCompatActivity
         refresh.setOnRefreshListener(presenter::loadDZ);
     }
 
+
+    public MainActivity() {}
+
+    public Context get() {
+        return this;
+    }
 }

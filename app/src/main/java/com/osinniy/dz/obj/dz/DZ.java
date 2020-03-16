@@ -1,4 +1,4 @@
-package com.osinniy.dz.obj;
+package com.osinniy.dz.obj.dz;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

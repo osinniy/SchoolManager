@@ -1,4 +1,4 @@
-package com.osinniy.dz.obj;
+package com.osinniy.dz.obj.timetable;
 
 import android.util.Log;
 

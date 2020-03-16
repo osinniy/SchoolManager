@@ -1,4 +1,4 @@
-package com.osinniy.dz.database;
+package com.osinniy.dz.database.firedz;
 
 public class DZDaoFactory {
 

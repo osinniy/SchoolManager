@@ -1,4 +1,4 @@
-package com.osinniy.dz.ui.dashboard;
+package com.osinniy.dz.ui.recycler;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle;
@@ -6,9 +6,9 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.OnLifecycleEvent;
 
 import com.google.firebase.firestore.ListenerRegistration;
-import com.osinniy.dz.database.DZDao;
-import com.osinniy.dz.database.DZDaoFactory;
-import com.osinniy.dz.obj.DZ;
+import com.osinniy.dz.database.firedz.DZDao;
+import com.osinniy.dz.database.firedz.DZDaoFactory;
+import com.osinniy.dz.obj.dz.DZ;
 import com.osinniy.dz.util.BasePresenter;
 
 import java.lang.ref.WeakReference;

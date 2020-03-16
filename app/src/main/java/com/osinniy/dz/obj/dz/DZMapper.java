@@ -1,10 +1,9 @@
-package com.osinniy.dz.obj.mapper;
+package com.osinniy.dz.obj.dz;
 
 import androidx.annotation.NonNull;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.osinniy.dz.database.FireDocs;
-import com.osinniy.dz.obj.DZ;
 
 import java.util.HashMap;
 import java.util.Map;

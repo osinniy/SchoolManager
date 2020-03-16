@@ -1,8 +1,8 @@
-package com.osinniy.dz.database;
+package com.osinniy.dz.database.firedz;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.ListenerRegistration;
-import com.osinniy.dz.obj.DZ;
+import com.osinniy.dz.obj.dz.DZ;
 
 import java.lang.ref.WeakReference;
 import java.util.List;

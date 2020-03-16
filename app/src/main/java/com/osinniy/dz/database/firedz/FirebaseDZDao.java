@@ -1,4 +1,4 @@
-package com.osinniy.dz.database;
+package com.osinniy.dz.database.firedz;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -8,8 +8,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.osinniy.dz.obj.DZ;
-import com.osinniy.dz.obj.mapper.DZMapper;
+import com.osinniy.dz.database.FireDocs;
+import com.osinniy.dz.obj.dz.DZ;
+import com.osinniy.dz.obj.dz.DZMapper;
 import com.osinniy.dz.util.Schedulers;
 
 import java.lang.ref.WeakReference;

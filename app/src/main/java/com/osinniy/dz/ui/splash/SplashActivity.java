@@ -1,4 +1,4 @@
-package com.osinniy.dz;
+package com.osinniy.dz.ui.splash;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,15 +10,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
-import com.osinniy.dz.database.DZDaoFactory;
+import com.osinniy.dz.R;
+import com.osinniy.dz.database.firedz.DZDaoFactory;
+import com.osinniy.dz.ui.nav.MainActivity;
 import com.osinniy.dz.util.Schedulers;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class SplashActivity extends AppCompatActivity {
-
-    private static final long DELAY_MS = 1000;
 
     private static final int RC_SIGN_IN = 777;
 
@@ -37,15 +37,15 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        main.postDelayed(exitRunnable, DELAY_MS);
+        main.post(exitRunnable);
     }
 
 
     private void startAuth() {
         List<AuthUI.IdpConfig> providers = Arrays.asList(
-                new AuthUI.IdpConfig.GoogleBuilder().build()
-//              TODO configure Facebook authentication
-//                new AuthUI.IdpConfig.FacebookBuilder().build()
+                new AuthUI.IdpConfig.EmailBuilder().build(),
+                new AuthUI.IdpConfig.GoogleBuilder().build(),
+                new AuthUI.IdpConfig.FacebookBuilder().build()
         );
 
         startActivityForResult(
