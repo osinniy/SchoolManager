@@ -1,4 +1,4 @@
-package com.osinniy.dz.util;
+package com.osinniy.dz.util.listeners;
 
 public interface OnItemClickListener<T> {
 

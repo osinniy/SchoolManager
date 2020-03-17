@@ -1,9 +1,7 @@
-package com.osinniy.dz.ui.recycler;
+package com.osinniy.dz.ui.dashboard;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.OnLifecycleEvent;
 
 import com.google.firebase.firestore.ListenerRegistration;
 import com.osinniy.dz.database.firedz.DZDao;
@@ -21,20 +19,18 @@ public class DZPresenter extends BasePresenter<DZPresenter.Listener> implements 
     private ListenerRegistration registration;
 
 
-    public DZPresenter(@NonNull Listener listener) {
+    DZPresenter(@NonNull Listener listener) {
         super(listener);
     }
 
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    public void loadDZ() {
-        registration = dao.listenNotes(new WeakReference<>(this));
+    void loadDZ() {
+        registration = dao.listenDZ(new WeakReference<>(this));
     }
 
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    public void stopLoadDZ() {
-        registration = dao.listenNotes(new WeakReference<>(this));
+    void stopLoadDZ() {
+        registration = dao.listenDZ(new WeakReference<>(this));
     }
 
 

@@ -1,4 +1,4 @@
-package com.osinniy.dz.ui.recycler;
+package com.osinniy.dz.ui.dashboard;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.osinniy.dz.R;
 import com.osinniy.dz.obj.dz.DZ;
-import com.osinniy.dz.util.OnItemClickListener;
+import com.osinniy.dz.util.listeners.OnItemClickListener;
 
 public class DZAdapter extends ListAdapter<DZ, DZAdapter.DZViewHolder> {
 
@@ -29,13 +29,13 @@ public class DZAdapter extends ListAdapter<DZ, DZAdapter.DZViewHolder> {
 
     private final LayoutInflater layoutInflater;
 
-    private final OnItemClickListener<DZ> dzClickListener;
+    private final OnItemClickListener<DZ> itemClickListener;
 
 
-    public DZAdapter(LayoutInflater layoutInflater, OnItemClickListener<DZ> dzClickListener) {
+    DZAdapter(LayoutInflater layoutInflater, OnItemClickListener<DZ> itemClickListener) {
         super(COMPARATOR);
         this.layoutInflater = layoutInflater;
-        this.dzClickListener = dzClickListener;
+        this.itemClickListener = itemClickListener;
     }
 
 
@@ -43,7 +43,7 @@ public class DZAdapter extends ListAdapter<DZ, DZAdapter.DZViewHolder> {
     @Override
     public DZViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new DZViewHolder(
-                layoutInflater.inflate(R.layout.activity_main_item_dz, parent, false));
+                layoutInflater.inflate(R.layout.fragment_dashboard_item_dz, parent, false));
     }
 
 
@@ -64,7 +64,7 @@ public class DZAdapter extends ListAdapter<DZ, DZAdapter.DZViewHolder> {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.title_1);
             tvDescription = itemView.findViewById(R.id.text_1);
-            itemView.setOnClickListener(v -> dzClickListener.onItemClicked(binded));
+            itemView.setOnClickListener(v -> itemClickListener.onItemClicked(binded));
         }
 
         private void bind(DZ dz) {

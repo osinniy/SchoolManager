@@ -44,10 +44,9 @@ class FirebaseDZDao implements DZDao {
 
 
     @Override
-    public ListenerRegistration listenNotes(WeakReference<GetDZListener> listenerRef) {
+    public ListenerRegistration listenDZ(WeakReference<GetDZListener> listenerRef) {
         return getUserDZQuery()
                 .addSnapshotListener(Schedulers.getIo(), (queryDocumentSnapshots, e) -> {
-
                     if (queryDocumentSnapshots != null) {
                         List<DZ> dzList = parseDZ(queryDocumentSnapshots.getDocuments());
                         GetDZListener listener = listenerRef.get();
@@ -57,7 +56,6 @@ class FirebaseDZDao implements DZDao {
                         GetDZListener listener = listenerRef.get();
                         if (listener != null) listener.onDZLoadFailed();
                     }
-
                 });
     }
 
@@ -65,7 +63,7 @@ class FirebaseDZDao implements DZDao {
     private List<DZ> parseDZ(List<DocumentSnapshot> documents) {
         List<DZ> notes = new ArrayList<>(documents.size());
         for (DocumentSnapshot snapshot : documents)
-            notes.add(DZMapper.restoreInstanceFromDocument(snapshot));
+            notes.add(DZMapper.instanceFromDoc(snapshot));
         return notes;
     }
 

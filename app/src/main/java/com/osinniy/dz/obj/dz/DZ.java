@@ -1,18 +1,12 @@
 package com.osinniy.dz.obj.dz;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
 public class DZ {
 
-    private final DateFormat timeDateFormatter = new SimpleDateFormat("HH:mm dd.MM", Locale.getDefault());
-
-    private String time = timeDateFormatter.format(new Date());
+    private Date date = new Date();
 
     private Map<String, String> homework;
     private String id;
@@ -21,14 +15,6 @@ public class DZ {
     private boolean isChanged = false;
 
 
-    public DZ(Map<String, String> homework, String time, String id, String uid, boolean isChanged) {
-        this.homework = homework;
-        this.time = time;
-        this.id = id;
-        this.uid = uid;
-        this.isChanged = isChanged;
-    }
-
     public DZ(Map<String, String> homework, String id, String uid) {
         this.homework = homework;
         this.uid = uid;
@@ -36,17 +22,23 @@ public class DZ {
     }
 
 
-    public void update(Map<String, String> newHomework) {
+    DZ(Map<String, String> homework, Date date, String id, String uid, boolean isChanged) {
+        this.homework = homework;
+        this.date = date;
+        this.id = id;
+        this.uid = uid;
+        this.isChanged = isChanged;
+    }
+
+
+    public Map<String, Object> update(Map<String, String> newHomework) {
         homework.clear();
         homework.putAll(newHomework);
-        time = timeDateFormatter.format(new Date());
+        date = new Date();
         isChanged = true;
+        return DZMapper.createMap(this);
     }
 
-
-    public Iterator<String> getSubjIterator() {
-        return homework.keySet().iterator();
-    }
 
     public String getId() {
         return id;
@@ -60,16 +52,8 @@ public class DZ {
         return homework;
     }
 
-    public String getTime() {
-        return time.substring(0, 5);
-    }
-
-    public String getDate() {
-        return time.substring(6, 11);
-    }
-
-    public String getFullTime() {
-        return time;
+    public Date getDate() {
+        return date;
     }
 
     public boolean isChanged() {
@@ -83,8 +67,7 @@ public class DZ {
         if (o == null || getClass() != o.getClass()) return false;
         DZ dz = (DZ) o;
         return isChanged == dz.isChanged &&
-                Objects.equals(timeDateFormatter, dz.timeDateFormatter) &&
-                time.equals(dz.time) &&
+                date.equals(dz.date) &&
                 Objects.equals(homework, dz.homework) &&
                 id.equals(dz.id) &&
                 Objects.equals(uid, dz.uid);
@@ -92,7 +75,7 @@ public class DZ {
 
     @Override
     public int hashCode() {
-        return Objects.hash(timeDateFormatter, time, homework, id, uid, isChanged);
+        return Objects.hash(date, homework, id, uid, isChanged);
     }
 
 }

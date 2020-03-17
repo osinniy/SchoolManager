@@ -9,11 +9,11 @@ import java.util.List;
 
 public interface DZDao {
 
+    void addInfoAboutNewUser(FirebaseUser newUser);
+
     void getDZ(WeakReference<GetDZListener> listener);
 
-    ListenerRegistration listenNotes(WeakReference<GetDZListener> listener);
-
-    void addInfoAboutNewUser(FirebaseUser newUser);
+    ListenerRegistration listenDZ(WeakReference<GetDZListener> listener);
 
     void addDZ(DZ dz);
 
