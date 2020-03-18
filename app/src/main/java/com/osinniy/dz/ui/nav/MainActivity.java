@@ -9,6 +9,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.osinniy.dz.R;
+import com.osinniy.dz.database.DaoFactory;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navView = findViewById(R.id.nav_view);
         NavController navController = Navigation.findNavController(this, R.id.root_fragment);
         NavigationUI.setupWithNavController(navView, navController);
+
+        DaoFactory.getInstance().getUserDao().isAdmin();
 
 //        if (savedInstanceState == null) navigator.beginNav();
 

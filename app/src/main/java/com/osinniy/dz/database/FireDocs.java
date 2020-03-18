@@ -5,13 +5,13 @@ public class FireDocs {
 //    collections
     public static final String COL_SCHOOL_SCHEDULE = "SchoolTimetable";
     public static final String COL_USERS           = "Users";
+    public static final String COL_ADMINS          = "Admins";
     public static final String COL_DZ              = "DZ";
-    public static final String COL_USER_INFO       = "UserInfo";
 
 //    info about user
-    public static final String EMAIL = "email";
-    public static final String NAME  = "name";
-    public static final String UID   = "uid";
+    public static final String EMAIL   = "email";
+    public static final String NAME    = "name";
+    public static final String UID     = "uid";
 
 //    info about dz obj
     public static final String HOMEWORK   = "homework";
@@ -28,5 +28,6 @@ public class FireDocs {
 
 //    tags
     public static final String TAG_FIRESTORE_READ = "FIRESTORE READ";
+    public static final String TAG_FIRESTORE_WRITE = "FIRESTORE WRITE";
 
 }

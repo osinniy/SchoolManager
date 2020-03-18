@@ -1,4 +1,6 @@
-package com.osinniy.dz.database.firedz;
+package com.osinniy.dz.database;
+
+import android.util.Log;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -8,7 +10,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.osinniy.dz.database.FireDocs;
 import com.osinniy.dz.obj.dz.DZ;
 import com.osinniy.dz.obj.dz.DZMapper;
 import com.osinniy.dz.util.Schedulers;
@@ -20,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-class FirebaseDZDao implements DZDao {
+class FirebaseDao implements Dao {
 
     private final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -28,7 +29,7 @@ class FirebaseDZDao implements DZDao {
 
     @Override
     public void getDZ(WeakReference<GetDZListener> listenerRef) {
-        Task<QuerySnapshot> snapshotTask = getUserDZQuery().get();
+        Task<QuerySnapshot> snapshotTask = getUserQuery().get();
 
         snapshotTask.addOnSuccessListener(Schedulers.getIo(), queryDocumentSnapshots -> {
             List<DZ> dzList = parseDZ(queryDocumentSnapshots.getDocuments());
@@ -45,12 +46,12 @@ class FirebaseDZDao implements DZDao {
 
     @Override
     public ListenerRegistration listenDZ(WeakReference<GetDZListener> listenerRef) {
-        return getUserDZQuery()
+        return getUserQuery()
                 .addSnapshotListener(Schedulers.getIo(), (queryDocumentSnapshots, e) -> {
                     if (queryDocumentSnapshots != null) {
-                        List<DZ> dzList = parseDZ(queryDocumentSnapshots.getDocuments());
+                        List<DZ> itemsList = parseDZ(queryDocumentSnapshots.getDocuments());
                         GetDZListener listener = listenerRef.get();
-                        if (listener != null) listener.onDZLoaded(dzList);
+                        if (listener != null) listener.onDZLoaded(itemsList);
                     }
                     else if (e != null) {
                         GetDZListener listener = listenerRef.get();
@@ -61,30 +62,44 @@ class FirebaseDZDao implements DZDao {
 
 
     private List<DZ> parseDZ(List<DocumentSnapshot> documents) {
-        List<DZ> notes = new ArrayList<>(documents.size());
+        List<DZ> dZItems = new ArrayList<>(documents.size());
         for (DocumentSnapshot snapshot : documents)
-            notes.add(DZMapper.instanceFromDoc(snapshot));
-        return notes;
+            dZItems.add(DZMapper.instanceFromDoc(snapshot));
+        return dZItems;
     }
 
 
-    private Query getUserDZQuery() {
+    private Query getUserQuery() {
         return firestore.collection(FireDocs.COL_DZ)
                 .whereEqualTo(FireDocs.UID, Objects.requireNonNull(user).getUid());
     }
 
 
-    public void addInfoAboutNewUser(FirebaseUser newUser) {
-        new Thread(() -> {
-            Map<String, String> user = new HashMap<>();
+    /**
+     * additional array:
+     * 0 - isAdmin
+     */
+    @Override
+    public void addInfoAboutNewUser(FirebaseUser newUser, boolean[] additional) {
+        Map<String, Object> user = new HashMap<>();
 
-            user.put(FireDocs.EMAIL, newUser.getEmail());
-            user.put(FireDocs.NAME, newUser.getDisplayName());
-            user.put(FireDocs.UID, newUser.getUid());
+        user.put(FireDocs.EMAIL, newUser.getEmail());
+        user.put(FireDocs.NAME, newUser.getDisplayName());
+        user.put(FireDocs.UID, newUser.getUid());
 
-            firestore.collection(FireDocs.COL_USERS).add(user);
-        });
-
+        if (additional[0]) {
+            firestore.collection(FireDocs.COL_ADMINS).add(user)
+                    .addOnFailureListener(e -> {
+                        Log.e(FireDocs.TAG_FIRESTORE_WRITE, "Failed to write to collection < "
+                                + FireDocs.COL_ADMINS + " > :", e);
+                    });
+        } else {
+            firestore.collection(FireDocs.COL_USERS).add(user)
+                    .addOnFailureListener(e -> {
+                        Log.e(FireDocs.TAG_FIRESTORE_WRITE, "Failed to write to collection < "
+                                + FireDocs.COL_USERS + " > :", e);
+                    });
+        }
     }
 
 

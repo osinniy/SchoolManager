@@ -21,7 +21,8 @@ import com.osinniy.dz.util.listeners.OnUIChangeListener;
 import java.util.List;
 
 public class DashboardFragment extends Fragment
-        implements DZPresenter.Listener, OnItemClickListener<DZ>, OnUIChangeListener {
+        implements DZPresenter.Listener, OnItemClickListener<DZ>,
+        OnUIChangeListener, SwipeRefreshLayout.OnRefreshListener {
 
     private Context c;
 
@@ -44,50 +45,38 @@ public class DashboardFragment extends Fragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        return v = inflater.inflate(R.layout.fragment_dashboard, container, false);
-    }
-
-
-    @Override
-    public void onStart() {
-        super.onStart();
+        v = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
         refresher = v.findViewById(R.id.swipe_refresh);
         refresher.setRefreshing(true);
-        refresher.setOnRefreshListener(this::onRefresh);
+        refresher.setOnRefreshListener(this);
 
         RecyclerView recycler = v.findViewById(R.id.dz_recycler);
         recycler.setAdapter(adapter);
         recycler.setLayoutManager(new LinearLayoutManager(c, RecyclerView.VERTICAL, false));
+
+        return v;
     }
 
 
     @Override
     public void onRefresh() {
-        if (!refresher.isRefreshing()) refresher.setRefreshing(true);
         Timetable.refresh();
         presenter.loadDZ();
     }
 
 
-//    TODO method is not called
+//    TODO method is not works
     @Override
-    public void onDZLoaded(List<DZ> dzList) {
+    public void onDZLoaded(List<DZ> itemsList) {
         refresher.setRefreshing(false);
-        adapter.submitList(dzList);
+        adapter.submitList(itemsList);
     }
 
 
     @Override
     public void onItemClicked(DZ item) {
 
-    }
-
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        presenter.stopLoadDZ();
     }
 
 

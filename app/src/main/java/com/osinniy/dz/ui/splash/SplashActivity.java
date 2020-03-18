@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.osinniy.dz.R;
-import com.osinniy.dz.database.firedz.DZDaoFactory;
+import com.osinniy.dz.database.DaoFactory;
 import com.osinniy.dz.ui.nav.MainActivity;
 import com.osinniy.dz.util.Schedulers;
 
@@ -65,7 +65,8 @@ public class SplashActivity extends AppCompatActivity {
         if (requestCode == RC_SIGN_IN) {
 
             if (resultCode == Activity.RESULT_OK) {
-                DZDaoFactory.getInstance().getDao().addInfoAboutNewUser(auth.getCurrentUser());
+                DaoFactory.getInstance().getDao()
+                        .addInfoAboutNewUser(auth.getCurrentUser(), new boolean[] {true});
                 startMainActivity();
             }
             else finish();
