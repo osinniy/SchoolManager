@@ -1,5 +1,7 @@
 package com.osinniy.dz.ui.dashboard;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
@@ -14,6 +16,8 @@ import com.osinniy.dz.util.BasePresenter;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
+import static com.osinniy.dz.ui.dashboard.DashboardFragment.TAG_METHOD_CALL;
+
 public class DZPresenter extends BasePresenter<DZPresenter.Listener> implements Dao.GetDZListener {
 
     private final Dao dao = DaoFactory.getInstance().getDao();
@@ -26,12 +30,13 @@ public class DZPresenter extends BasePresenter<DZPresenter.Listener> implements 
     }
 
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void loadDZ() {
         registration = dao.listenDZ(new WeakReference<>(this));
     }
 
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     void stopLoadDZ() {
         registration = dao.listenDZ(new WeakReference<>(this));
     }
@@ -45,7 +50,7 @@ public class DZPresenter extends BasePresenter<DZPresenter.Listener> implements 
 
     @Override
     public void onDZLoadFailed() {
-
+        Log.d(TAG_METHOD_CALL, "Method < onDZLoadFailed > in DZPresenter called");
     }
 
 

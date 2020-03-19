@@ -14,6 +14,8 @@ import java.util.Map;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nullable;
 
+import static com.osinniy.dz.ui.dashboard.DashboardFragment.TAG_METHOD_CALL;
+
 @SuppressWarnings("unchecked")
 public class Timetable {
 
@@ -25,6 +27,7 @@ public class Timetable {
 
 
     public static void refresh() {
+        Log.d(TAG_METHOD_CALL, "Method < refresh > in Timetable called");
         FirebaseFirestore.getInstance().collection(FireDocs.COL_SCHOOL_SCHEDULE).get()
                 .addOnSuccessListener(snapshots -> {
                     for (DocumentSnapshot doc : snapshots) {

@@ -4,9 +4,11 @@
     <string name="facebook_application_id" translatable="false">627722124452257</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fb627722124452257</string>
 
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="nav_dashboard">Dashboard</string>
+    <string name="nav_history">History</string>
+    <string name="nav_notifications">Notifications</string>
+
+    <string name="text_coming_soon">Coming soon</string>
 
     <string name="pref_dark_mode">Dark mode</string>
 

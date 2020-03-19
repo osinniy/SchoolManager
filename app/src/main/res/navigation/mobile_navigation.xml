@@ -6,20 +6,20 @@
     app:startDestination="@+id/navigation_dashboard">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:label="@string/title_home"
-        android:name="com.osinniy.dz.ui.HomeFragment"
-        tools:layout="@layout/fragment_home" />
-
-    <fragment
         android:id="@+id/navigation_dashboard"
-        android:label="@string/title_dashboard"
+        android:label="@string/nav_dashboard"
         android:name="com.osinniy.dz.ui.dashboard.DashboardFragment"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
+        android:id="@+id/navigation_history"
+        android:label="@string/nav_history"
+        android:name="com.osinniy.dz.ui.HistoryFragment"
+        tools:layout="@layout/fragment_history" />
+
+    <fragment
         android:id="@+id/navigation_notifications"
-        android:label="@string/title_notifications"
+        android:label="@string/nav_notifications"
         android:name="com.osinniy.dz.ui.NotificationsFragment"
         tools:layout="@layout/fragment_notifications" />
 </navigation>

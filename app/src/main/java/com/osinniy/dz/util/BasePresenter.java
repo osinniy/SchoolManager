@@ -24,14 +24,17 @@ public abstract class BasePresenter<Listener extends LifecycleOwner> implements 
 
     private final Set<Future> tasks = Collections.newSetFromMap(new WeakHashMap<>());
 
+
     public BasePresenter(@NonNull Listener listener) {
         this.listener = new WeakReference<>(listener);
         listener.getLifecycle().addObserver(this);
     }
 
+
     protected void addFuture(Future<?> future) {
         tasks.add(future);
     }
+
 
     protected void postOnMainThread(ListenerRunnable<Listener> listenerRunnable) {
         handler.post(() -> {
@@ -40,11 +43,13 @@ public abstract class BasePresenter<Listener extends LifecycleOwner> implements 
         });
     }
 
+
     @CallSuper
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     public void onDestroy() {
         for (Future<?> future : tasks) future.cancel(true);
     }
+
 
     public interface ListenerRunnable<Listener> {
         void executeWithListener(Listener listener);

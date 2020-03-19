@@ -12,14 +12,12 @@ import com.osinniy.dz.R;
 
 public class NotificationsFragment extends Fragment {
 
-    private View view;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
-        ViewGroup container, Bundle savedInstanceState) {
+                             ViewGroup container, Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_notifications, container, false);
 
-        view = inflater.inflate(R.layout.fragment_notifications, container, false);
-
-        return view;
+        return v;
     }
 
 }

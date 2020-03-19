@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import static com.osinniy.dz.ui.dashboard.DashboardFragment.TAG_METHOD_CALL;
+
 class FirebaseDao implements Dao {
 
     private final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
@@ -46,6 +48,7 @@ class FirebaseDao implements Dao {
 
     @Override
     public ListenerRegistration listenDZ(WeakReference<GetDZListener> listenerRef) {
+        Log.d(TAG_METHOD_CALL, "Method < listenDZ > in FirebaseDao called");
         return getUserQuery()
                 .addSnapshotListener(Schedulers.getIo(), (queryDocumentSnapshots, e) -> {
                     if (queryDocumentSnapshots != null) {

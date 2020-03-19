@@ -13,6 +13,7 @@ public interface Dao {
 
     void getDZ(WeakReference<GetDZListener> listener);
 
+//    TODO FIX listenDZ() called 2 times during navigation
     ListenerRegistration listenDZ(WeakReference<GetDZListener> listener);
 
     void addDZ(DZ dz);

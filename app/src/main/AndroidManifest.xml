@@ -26,6 +26,8 @@
         <activity android:name=".ui.nav.MainActivity"
             android:windowSoftInputMode="adjustResize" />
 
+        <activity android:name=".ui.userdata.UserActivity" />
+
     </application>
 
 </manifest>
