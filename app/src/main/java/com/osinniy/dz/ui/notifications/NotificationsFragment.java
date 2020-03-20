@@ -1,4 +1,4 @@
-package com.osinniy.dz.ui;
+package com.osinniy.dz.ui.notifications;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,13 +10,12 @@ import androidx.fragment.app.Fragment;
 
 import com.osinniy.dz.R;
 
-public class HistoryFragment extends Fragment {
+public class NotificationsFragment extends Fragment {
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
-        View v = inflater.inflate(R.layout.fragment_history, container, false);
+        View v = inflater.inflate(R.layout.fragment_notifications, container, false);
 
         return v;
     }

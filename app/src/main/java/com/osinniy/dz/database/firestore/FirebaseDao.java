@@ -1,4 +1,4 @@
-package com.osinniy.dz.database;
+package com.osinniy.dz.database.firestore;
 
 import android.util.Log;
 
@@ -10,6 +10,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.osinniy.dz.database.FireDocs;
 import com.osinniy.dz.obj.dz.DZ;
 import com.osinniy.dz.obj.dz.DZMapper;
 import com.osinniy.dz.util.Schedulers;
@@ -23,7 +24,7 @@ import java.util.Objects;
 
 import static com.osinniy.dz.ui.dashboard.DashboardFragment.TAG_METHOD_CALL;
 
-class FirebaseDao implements Dao {
+public class FirebaseDao implements Dao {
 
     private final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -67,7 +68,7 @@ class FirebaseDao implements Dao {
     private List<DZ> parseDZ(List<DocumentSnapshot> documents) {
         List<DZ> dZItems = new ArrayList<>(documents.size());
         for (DocumentSnapshot snapshot : documents)
-            dZItems.add(DZMapper.instanceFromDoc(snapshot));
+            dZItems.add(DZMapper.restoreInstance(snapshot));
         return dZItems;
     }
 

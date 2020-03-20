@@ -1,4 +1,4 @@
-package com.osinniy.dz.ui.userdata;
+package com.osinniy.dz.ui.splash;
 
 import android.os.Bundle;
 
@@ -7,13 +7,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.osinniy.dz.R;
 
-public class UserActivity extends AppCompatActivity {
+public class SplashGroupActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_user);
+        setContentView(R.layout.activity_splash_group);
     }
 
 }

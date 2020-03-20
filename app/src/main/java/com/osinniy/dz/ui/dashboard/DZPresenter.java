@@ -8,8 +8,8 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.OnLifecycleEvent;
 
 import com.google.firebase.firestore.ListenerRegistration;
-import com.osinniy.dz.database.Dao;
 import com.osinniy.dz.database.DaoFactory;
+import com.osinniy.dz.database.firestore.Dao;
 import com.osinniy.dz.obj.dz.DZ;
 import com.osinniy.dz.util.BasePresenter;
 

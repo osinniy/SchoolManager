@@ -19,6 +19,12 @@ import static com.osinniy.dz.ui.dashboard.DashboardFragment.TAG_METHOD_CALL;
 @SuppressWarnings("unchecked")
 public class Timetable {
 
+    public static final String MONDAY    = "Monday";
+    public static final String TUESDAY   = "Tuesday";
+    public static final String WEDNESDAY = "Wednesday";
+    public static final String THURSDAY  = "Thursday";
+    public static final String FRIDAY    = "Friday";
+
     private static Map<String, String> monday;
     private static Map<String, String> tuesday;
     private static Map<String, String> wednesday;
@@ -31,16 +37,16 @@ public class Timetable {
         FirebaseFirestore.getInstance().collection(FireDocs.COL_SCHOOL_SCHEDULE).get()
                 .addOnSuccessListener(snapshots -> {
                     for (DocumentSnapshot doc : snapshots) {
-                        if (doc.contains(FireDocs.MONDAY))
-                            monday = (Map<String, String>) doc.get(FireDocs.MONDAY);
-                        if (doc.contains(FireDocs.TUESDAY))
-                            tuesday = (Map<String, String>) doc.get(FireDocs.TUESDAY);
-                        if (doc.contains(FireDocs.WEDNESDAY))
-                            wednesday = (Map<String, String>) doc.get(FireDocs.WEDNESDAY);
-                        if (doc.contains(FireDocs.THURSDAY))
-                            thursday = (Map<String, String>) doc.get(FireDocs.THURSDAY);
-                        if (doc.contains(FireDocs.FRIDAY))
-                            friday = (Map<String, String>) doc.get(FireDocs.FRIDAY);
+                        if (doc.contains(MONDAY))
+                            monday = (Map<String, String>) doc.get(MONDAY);
+                        if (doc.contains(TUESDAY))
+                            tuesday = (Map<String, String>) doc.get(TUESDAY);
+                        if (doc.contains(WEDNESDAY))
+                            wednesday = (Map<String, String>) doc.get(WEDNESDAY);
+                        if (doc.contains(THURSDAY))
+                            thursday = (Map<String, String>) doc.get(THURSDAY);
+                        if (doc.contains(FRIDAY))
+                            friday = (Map<String, String>) doc.get(FRIDAY);
                     }
                 })
                 .addOnFailureListener(e -> {
@@ -52,11 +58,11 @@ public class Timetable {
     public static Map<String, Object> getAll() {
         Map<String, Object> map = new HashMap<>();
 
-        map.put(FireDocs.MONDAY, monday);
-        map.put(FireDocs.TUESDAY, tuesday);
-        map.put(FireDocs.WEDNESDAY, wednesday);
-        map.put(FireDocs.THURSDAY, thursday);
-        map.put(FireDocs.FRIDAY, friday);
+        map.put(MONDAY, monday);
+        map.put(TUESDAY, tuesday);
+        map.put(WEDNESDAY, wednesday);
+        map.put(THURSDAY, thursday);
+        map.put(FRIDAY, friday);
 
         return map;
     }

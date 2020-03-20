@@ -1,5 +1,9 @@
 package com.osinniy.dz.database;
 
+import com.osinniy.dz.database.firestore.Dao;
+import com.osinniy.dz.database.firestore.FirebaseDao;
+import com.osinniy.dz.database.groups.GroupDao;
+
 public class DaoFactory {
 
     private static DaoFactory instance;

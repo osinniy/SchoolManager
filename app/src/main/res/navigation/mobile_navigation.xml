@@ -14,12 +14,12 @@
     <fragment
         android:id="@+id/navigation_history"
         android:label="@string/nav_history"
-        android:name="com.osinniy.dz.ui.HistoryFragment"
+        android:name="com.osinniy.dz.ui.history.HistoryFragment"
         tools:layout="@layout/fragment_history" />
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:label="@string/nav_notifications"
-        android:name="com.osinniy.dz.ui.NotificationsFragment"
+        android:name="com.osinniy.dz.ui.notifications.NotificationsFragment"
         tools:layout="@layout/fragment_notifications" />
 </navigation>

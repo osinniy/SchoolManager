@@ -7,11 +7,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.osinniy.dz.R;
 import com.osinniy.dz.util.listeners.OnUIChangeListener;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UIManager {
 
@@ -42,13 +39,6 @@ public class UIManager {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(c, RecyclerView.VERTICAL, false));
         return recyclerView;
-    }
-
-
-    public CircleImageView setProfilePhoto() {
-        CircleImageView profilePhoto = v.findViewById(R.id.profile_photo);
-        profilePhoto.setImageURI(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl());
-        return profilePhoto;
     }
 
 }

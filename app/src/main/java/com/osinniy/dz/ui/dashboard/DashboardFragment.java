@@ -2,6 +2,7 @@ package com.osinniy.dz.ui.dashboard;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +22,8 @@ import com.osinniy.dz.util.listeners.OnItemClickListener;
 import com.osinniy.dz.util.listeners.OnUIChangeListener;
 
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class DashboardFragment extends Fragment
         implements DZPresenter.Listener, OnItemClickListener<DZ>, OnUIChangeListener {
@@ -54,8 +57,11 @@ public class DashboardFragment extends Fragment
 
         ui.setRecyclerView(c, adapter);
 
-        ui.setProfilePhoto()
-                .setOnClickListener(view -> startActivity(new Intent(c, UserActivity.class)));
+        Uri testUri = Uri.parse("https://pbs.twimg.com/profile_images/720684837363953664/F6Ks_osM.jpg");
+
+        CircleImageView profilePhoto = v.findViewById(R.id.profile_photo);
+        profilePhoto.setImageURI(testUri);
+        profilePhoto.setOnClickListener(view -> startActivity(new Intent(c, UserActivity.class)));
 
         return v;
     }

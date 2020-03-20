@@ -4,6 +4,12 @@
     <string name="facebook_application_id" translatable="false">627722124452257</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fb627722124452257</string>
 
+    <string name="text_join_group">To join group enter it code below</string>
+    <string name="text_group_code">Group code</string>
+    <string name="text_join">JOIN</string>
+    <string name="text_or">or</string>
+    <string name="text_create_new_group">CREATE NEW GROUP</string>
+
     <string name="nav_dashboard">Dashboard</string>
     <string name="nav_history">History</string>
     <string name="nav_notifications">Notifications</string>

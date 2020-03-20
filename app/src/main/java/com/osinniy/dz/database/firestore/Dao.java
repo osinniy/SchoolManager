@@ -1,4 +1,4 @@
-package com.osinniy.dz.database;
+package com.osinniy.dz.database.firestore;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.ListenerRegistration;

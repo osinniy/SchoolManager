@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.osinniy.dz">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:fullBackupContent="@xml/backup_descriptor">
+        android:theme="@style/AppTheme">
 
-        <activity
-            android:name=".ui.splash.SplashActivity">
+        <activity android:name=".ui.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,10 +21,17 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".ui.splash.SplashGroupActivity" />
+
         <activity android:name=".ui.nav.MainActivity"
             android:windowSoftInputMode="adjustResize" />
 
         <activity android:name=".ui.userdata.UserActivity" />
+
+        <service
+            android:name=".database.FireBackgroundServices"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
 
     </application>
 

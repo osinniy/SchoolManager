@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<!--    TODO rewrite ui using bias for better support all screen diagonals-->
+
+    <TextView
+        android:id="@+id/text_view_join_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="180dp"
+        android:textSize="20sp"
+        android:text="@string/text_join_group" />
+
+    <EditText
+        android:id="@+id/edit_group_code"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_view_join_group"
+        android:hint="@string/text_group_code"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="48dp"
+        android:inputType="textVisiblePassword"
+        android:autofillHints="code" />
+
+    <Button
+        android:id="@+id/butt_join"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_group_code"
+        android:layout_marginTop="48dp"
+        android:text="@string/text_join" />
+
+    <TextView
+        android:id="@+id/text_view_or"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/butt_join"
+        android:layout_marginTop="240dp"
+        app:layout_constraintLeft_toRightOf="@id/left_line"
+        android:text="@string/text_or" />
+
+    <View
+        android:id="@+id/left_line"
+        android:layout_width="@dimen/line_view_width"
+        android:layout_height="2dp"
+        app:layout_constraintTop_toBottomOf="@id/butt_join"
+        android:layout_marginTop="250dp"
+        app:layout_constraintRight_toLeftOf="@id/text_view_or"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:background="@android:color/darker_gray" />
+
+    <View
+        android:id="@+id/right_line"
+        android:layout_width="@dimen/line_view_width"
+        android:layout_height="2dp"
+        app:layout_constraintTop_toBottomOf="@id/butt_join"
+        android:layout_marginTop="250dp"
+        app:layout_constraintLeft_toRightOf="@id/text_view_or"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@android:color/darker_gray" />
+
+    <Button
+        android:id="@+id/butt_create_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_view_or"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/text_create_new_group" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,12 +2,14 @@ package com.osinniy.dz.obj.dz;
 
 import androidx.annotation.NonNull;
 
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.osinniy.dz.database.FireDocs;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 
 @SuppressWarnings("unchecked")
@@ -17,7 +19,7 @@ public class DZMapper {
         Map<String, Object> map = new HashMap<>();
 
         map.put(FireDocs.HOMEWORK, dz.getHomework());
-        map.put(FireDocs.TIME, dz.getDate());
+        map.put(FireDocs.TIME, new Timestamp(dz.getDate()));
         map.put(FireDocs.UID, dz.getUid());
         map.put(FireDocs.ID, dz.getId());
         map.put(FireDocs.IS_CHANGED, dz.isChanged());
@@ -26,7 +28,7 @@ public class DZMapper {
     }
 
 
-    public static DZ instanceFromMap(@NonNull Map<String, Object> map) {
+    public static DZ restoreInstance(@NonNull Map<String, Object> map) {
         return new DZ(
                 (Map<String, String>) map.get(FireDocs.HOMEWORK),
                 (Date) map.get(FireDocs.TIME),
@@ -37,10 +39,10 @@ public class DZMapper {
     }
 
 
-    public static DZ instanceFromDoc(@NonNull DocumentSnapshot doc) {
+    public static DZ restoreInstance(@NonNull DocumentSnapshot doc) {
         return new DZ(
                 (Map<String, String>) doc.get(FireDocs.HOMEWORK),
-                (Date) doc.get(FireDocs.TIME),
+                ((Timestamp) Objects.requireNonNull(doc.get(FireDocs.TIME))).toDate(),
                 doc.getString(FireDocs.ID),
                 doc.getString(FireDocs.UID),
                 (boolean) doc.get(FireDocs.IS_CHANGED)

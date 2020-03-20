@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.common.Scopes;
 import com.google.firebase.auth.FirebaseAuth;
 import com.osinniy.dz.R;
 import com.osinniy.dz.database.DaoFactory;
@@ -44,7 +45,14 @@ public class SplashActivity extends AppCompatActivity {
     private void startAuth() {
         List<AuthUI.IdpConfig> providers = Arrays.asList(
                 new AuthUI.IdpConfig.EmailBuilder().build(),
-                new AuthUI.IdpConfig.GoogleBuilder().build(),
+                new AuthUI.IdpConfig.GoogleBuilder()
+                        .setScopes(Arrays.asList(
+                                Scopes.PROFILE,
+                                Scopes.EMAIL,
+                                Scopes.OPEN_ID,
+                                Scopes.PLUS_ME,
+                                Scopes.APP_STATE))
+                        .build(),
                 new AuthUI.IdpConfig.FacebookBuilder().build()
         );
 
