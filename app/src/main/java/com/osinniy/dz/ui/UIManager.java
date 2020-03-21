@@ -7,35 +7,32 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.osinniy.dz.R;
 import com.osinniy.dz.util.listeners.OnUIChangeListener;
 
 public class UIManager {
 
+    private Context c;
     private View v;
-
     private OnUIChangeListener listener;
 
 
-    public UIManager(View v, OnUIChangeListener listener) {
+    public UIManager(Context c, View v, OnUIChangeListener UIChangeListener) {
+        this.c = c;
         this.v = v;
-        this.listener = listener;
-
-        init();
+        this.listener = UIChangeListener;
     }
 
 
-    private void init() {
-        SwipeRefreshLayout swipeRefresh =  v.findViewById(R.id.swipe_refresh);
+    public SwipeRefreshLayout setSwipeRefresh(int id) {
+        SwipeRefreshLayout swipeRefresh =  v.findViewById(id);
         swipeRefresh.setRefreshing(true);
-        swipeRefresh.setOnRefreshListener(() -> {
-                    new Thread(() -> listener.onRefresh()).start();
-                });
+        swipeRefresh.setOnRefreshListener(() -> new Thread(() -> listener.onRefresh()).start());
+        return swipeRefresh;
     }
 
 
-    public RecyclerView setRecyclerView(Context c, RecyclerView.Adapter adapter) {
-        RecyclerView recyclerView = v.findViewById(R.id.dashboard_recycler);
+    public RecyclerView setRecyclerView(int id, RecyclerView.Adapter adapter) {
+        RecyclerView recyclerView = v.findViewById(id);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(c, RecyclerView.VERTICAL, false));
         return recyclerView;

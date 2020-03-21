@@ -13,7 +13,6 @@ import com.google.android.gms.common.Scopes;
 import com.google.firebase.auth.FirebaseAuth;
 import com.osinniy.dz.R;
 import com.osinniy.dz.database.DaoFactory;
-import com.osinniy.dz.ui.nav.MainActivity;
 import com.osinniy.dz.util.Schedulers;
 
 import java.util.Arrays;
@@ -29,7 +28,7 @@ public class SplashActivity extends AppCompatActivity {
 
 
     private Runnable exitRunnable = () -> {
-        if (auth.getCurrentUser() != null) startMainActivity();
+        if (auth.getCurrentUser() != null) startSecondStepActivity();
         else startAuth();
     };
 
@@ -74,8 +73,9 @@ public class SplashActivity extends AppCompatActivity {
 
             if (resultCode == Activity.RESULT_OK) {
                 DaoFactory.getInstance().getDao()
+//                                                              TODO shouldn't be always true
                         .addInfoAboutNewUser(auth.getCurrentUser(), new boolean[] {true});
-                startMainActivity();
+                startSecondStepActivity();
             }
             else finish();
         }
@@ -83,8 +83,8 @@ public class SplashActivity extends AppCompatActivity {
     }
 
 
-    private void startMainActivity() {
-        startActivity(new Intent(this, MainActivity.class));
+    private void startSecondStepActivity() {
+        startActivity(new Intent(this, SplashGroupActivity.class));
         finish();
     }
 

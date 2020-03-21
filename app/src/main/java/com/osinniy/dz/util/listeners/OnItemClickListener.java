@@ -1,7 +1,12 @@
 package com.osinniy.dz.util.listeners;
 
-public interface OnItemClickListener<T> {
+import com.osinniy.dz.obj.dz.DZ;
+import com.osinniy.dz.obj.imp.Important;
 
-    void onItemClicked(T item);
+public interface OnItemClickListener {
+
+    void onItemImportantClicked(Important item);
+
+    void onItemDZClicked(DZ item);
 
 }

@@ -18,14 +18,14 @@ import java.util.List;
 
 import static com.osinniy.dz.ui.dashboard.DashboardFragment.TAG_METHOD_CALL;
 
-public class DZPresenter extends BasePresenter<DZPresenter.Listener> implements Dao.GetDZListener {
+public class DashboardPresenter extends BasePresenter<DashboardPresenter.Listener> implements Dao.GetDZListener {
 
     private final Dao dao = DaoFactory.getInstance().getDao();
 
     private ListenerRegistration registration;
 
 
-    DZPresenter(@NonNull Listener listener) {
+    DashboardPresenter(@NonNull Listener listener) {
         super(listener);
     }
 

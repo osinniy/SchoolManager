@@ -47,6 +47,7 @@ public class FirebaseDao implements Dao {
     }
 
 
+//    TODO shouldn't called in main thread
     @Override
     public ListenerRegistration listenDZ(WeakReference<GetDZListener> listenerRef) {
         Log.d(TAG_METHOD_CALL, "Method < listenDZ > in FirebaseDao called");
@@ -79,16 +80,13 @@ public class FirebaseDao implements Dao {
     }
 
 
-    /**
-     * additional array:
-     * 0 - isAdmin
-     */
+//    TODO rewrite to optimize for groups
     @Override
     public void addInfoAboutNewUser(FirebaseUser newUser, boolean[] additional) {
         Map<String, Object> user = new HashMap<>();
 
         user.put(FireDocs.EMAIL, newUser.getEmail());
-        user.put(FireDocs.NAME, newUser.getDisplayName());
+        user.put(FireDocs.USERNAME, newUser.getDisplayName());
         user.put(FireDocs.UID, newUser.getUid());
 
         if (additional[0]) {

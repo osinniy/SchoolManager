@@ -2,7 +2,6 @@ package com.osinniy.dz.ui.dashboard;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,10 +12,13 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.osinniy.dz.R;
 import com.osinniy.dz.obj.dz.DZ;
+import com.osinniy.dz.obj.imp.Important;
 import com.osinniy.dz.obj.timetable.Timetable;
 import com.osinniy.dz.ui.UIManager;
+import com.osinniy.dz.ui.splash.SplashGroupActivity;
 import com.osinniy.dz.ui.userdata.UserActivity;
 import com.osinniy.dz.util.listeners.OnItemClickListener;
 import com.osinniy.dz.util.listeners.OnUIChangeListener;
@@ -26,23 +28,23 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class DashboardFragment extends Fragment
-        implements DZPresenter.Listener, OnItemClickListener<DZ>, OnUIChangeListener {
+        implements DashboardPresenter.Listener, OnItemClickListener, OnUIChangeListener {
 
     public static final String TAG_METHOD_CALL = "METHOD CALL";
 
     private Context c;
 
     private SwipeRefreshLayout refresher;
-    private DZAdapter adapter;
-    private DZPresenter presenter;
+    private DashboardAdapter adapter;
+    private DashboardPresenter presenter;
 
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         c = context;
-        adapter = new DZAdapter(getLayoutInflater(), this);
-        presenter = new DZPresenter(this);
+        adapter = new DashboardAdapter(getLayoutInflater(), this);
+        presenter = new DashboardPresenter(this);
     }
 
 
@@ -51,16 +53,15 @@ public class DashboardFragment extends Fragment
                              ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
-        refresher = v.findViewById(R.id.swipe_refresh);
+        UIManager ui = new UIManager(c, v, this);
 
-        UIManager ui = new UIManager(v, this);
+        ui.setRecyclerView(R.id.dashboard_recycler, adapter);
 
-        ui.setRecyclerView(c, adapter);
-
-        Uri testUri = Uri.parse("https://pbs.twimg.com/profile_images/720684837363953664/F6Ks_osM.jpg");
+        refresher = ui.setSwipeRefresh(R.id.swipe_refresh);
 
         CircleImageView profilePhoto = v.findViewById(R.id.profile_photo);
-        profilePhoto.setImageURI(testUri);
+//        FIXME photo didn't work
+        profilePhoto.setImageURI(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl());
         profilePhoto.setOnClickListener(view -> startActivity(new Intent(c, UserActivity.class)));
 
         return v;
@@ -78,14 +79,18 @@ public class DashboardFragment extends Fragment
     public void onDZLoaded(List<DZ> itemsList) {
         Log.d(TAG_METHOD_CALL, "Method < onDZLoaded > in DashboardFragment called");
         refresher.setRefreshing(false);
-        adapter.submitList(itemsList);
+//        adapter.submitList(itemsList);
+
+        startActivity(new Intent(c, SplashGroupActivity.class));
     }
 
 
     @Override
-    public void onItemClicked(DZ item) {
+    public void onItemImportantClicked(Important item) {}
 
-    }
+
+    @Override
+    public void onItemDZClicked(DZ item) {}
 
 
     @Override

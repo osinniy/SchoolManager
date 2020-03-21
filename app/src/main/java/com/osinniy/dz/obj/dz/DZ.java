@@ -1,28 +1,29 @@
 package com.osinniy.dz.obj.dz;
 
+import com.osinniy.dz.obj.Objectable;
+
 import java.util.Date;
 import java.util.Map;
 import java.util.Objects;
 
-public class DZ {
+public class DZ implements Objectable {
+
+    private Map<Integer, String> homework;
 
     private Date date = new Date();
-
-    private Map<String, String> homework;
     private String id;
     private String uid;
-
     private boolean isChanged = false;
 
 
-    public DZ(Map<String, String> homework, String id, String uid) {
+    public DZ(Map<Integer, String> homework, String id, String uid) {
         this.homework = homework;
         this.uid = uid;
         this.id = id;
     }
 
 
-    DZ(Map<String, String> homework, Date date, String id, String uid, boolean isChanged) {
+    DZ(Map<Integer, String> homework, Date date, String id, String uid, boolean isChanged) {
         this.homework = homework;
         this.date = date;
         this.id = id;
@@ -31,7 +32,7 @@ public class DZ {
     }
 
 
-    public Map<String, Object> update(Map<String, String> newHomework) {
+    public Map<String, Object> update(Map<Integer, String> newHomework) {
         homework.clear();
         homework.putAll(newHomework);
         date = new Date();
@@ -40,6 +41,7 @@ public class DZ {
     }
 
 
+    @Override
     public String getId() {
         return id;
     }
@@ -48,7 +50,7 @@ public class DZ {
         return uid;
     }
 
-    public Map<String, String> getHomework() {
+    public Map<Integer, String> getHomework() {
         return homework;
     }
 
@@ -70,7 +72,7 @@ public class DZ {
                 date.equals(dz.date) &&
                 Objects.equals(homework, dz.homework) &&
                 id.equals(dz.id) &&
-                Objects.equals(uid, dz.uid);
+                uid.equals(dz.uid);
     }
 
     @Override

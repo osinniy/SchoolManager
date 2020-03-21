@@ -9,11 +9,15 @@ import java.util.List;
 
 public interface Dao {
 
+    /**
+     * additional array:
+     * 0 - isAdmin
+     */
     void addInfoAboutNewUser(FirebaseUser newUser, boolean[] additional);
 
     void getDZ(WeakReference<GetDZListener> listener);
 
-//    TODO FIX listenDZ() called 2 times during navigation
+//    FIXME listenDZ() called 2 times during navigation
     ListenerRegistration listenDZ(WeakReference<GetDZListener> listener);
 
     void addDZ(DZ dz);

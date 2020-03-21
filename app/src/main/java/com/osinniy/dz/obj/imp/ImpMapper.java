@@ -1,4 +1,4 @@
-package com.osinniy.dz.obj.dz;
+package com.osinniy.dz.obj.imp;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,24 +10,26 @@ import com.osinniy.dz.database.FireDocs;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DZMapper {
+public class ImpMapper {
 
-    public static Map<String, Object> createMap(@NonNull DZ dz) {
+    public static Map<String, Object> createMap(@NonNull Important imp) {
         Map<String, Object> map = new HashMap<>();
 
-        map.put(FireDocs.HOMEWORK, dz.getHomework());
-        map.put(FireDocs.DATE, new Timestamp(dz.getDate()));
-        map.put(FireDocs.UID, dz.getUid());
-        map.put(FireDocs.ID, dz.getId());
-        map.put(FireDocs.IS_CHANGED, dz.isChanged());
+        map.put(FireDocs.NAME, imp.getName());
+        map.put(FireDocs.TEXT, imp.getText());
+        map.put(FireDocs.DATE, new Timestamp(imp.getDate()));
+        map.put(FireDocs.UID, imp.getUid());
+        map.put(FireDocs.ID, imp.getId());
+        map.put(FireDocs.IS_CHANGED, imp.isChanged());
 
         return map;
     }
 
     @SuppressWarnings("all")
-    public static DZ restoreInstance(@NonNull Map<String, Object> map) {
-        return new DZ(
-                (Map<Integer, String>) map.get(FireDocs.HOMEWORK),
+    public static Important restoreInstance(@NonNull Map<String, Object> map) {
+        return new Important(
+                String.valueOf(map.get(FireDocs.NAME)),
+                String.valueOf(map.get(FireDocs.TEXT)),
                 ((Timestamp) map.get(FireDocs.DATE)).toDate(),
                 String.valueOf(map.get(FireDocs.ID)),
                 String.valueOf(map.get(FireDocs.UID)),
@@ -37,7 +39,7 @@ public class DZMapper {
 
 
     @Nullable
-    public static DZ restoreInstance(@NonNull DocumentSnapshot doc) {
+    public static Important restoreInstance(@NonNull DocumentSnapshot doc) {
         if (doc.getData() == null) return null;
         return restoreInstance(doc.getData());
     }
