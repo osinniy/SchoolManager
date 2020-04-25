@@ -1,21 +1,46 @@
 <resources>
-    <string name="app_name" translatable="false">DZ</string>
+    <string name="app_name" translatable="false">School Manager</string>
 
     <string name="facebook_application_id" translatable="false">627722124452257</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fb627722124452257</string>
 
     <string name="text_join_group">To join group enter it code below</string>
-    <string name="text_group_code">Group code</string>
+    <string name="text_group_code">Code</string>
     <string name="text_join">JOIN</string>
     <string name="text_or">or</string>
     <string name="text_create_new_group">CREATE NEW GROUP</string>
+    <string name="text_coming_soon">Coming soon</string>
+    <string name="text_create_group">Create group</string>
+    <string name="text_group_name">Group name (required)</string>
+    <string name="text_description">Description (optional)</string>
+    <string name="text_create">CREATE</string>
 
     <string name="nav_dashboard">Dashboard</string>
     <string name="nav_history">History</string>
     <string name="nav_notifications">Notifications</string>
 
-    <string name="text_coming_soon">Coming soon</string>
+    <string name="snackbar_enter_valid_code">Enter valid code</string>
+    <string name="snackbar_group_not_found">No groups with this code found!</string>
+    <string name="snackbar_offline_mode">Offline mode</string>
+    <string name="snackbar_unavailable_action">This action is unavailable in offline mode</string>
+    <string name="toast_sign_in_cancelled">Sign-in canceled</string>
+    <string name="toast_no_internet_connection">No internet connection</string>
+    <string name="toast_google_error">Google error</string>
+    <string name="toast_facebook_error">Facebook error</string>
+    <string name="toast_email_error">Email error</string>
+    <string name="toast_developer_error">Developer error, we are already working on it</string>
+    <string name="toast_unknown_error">Unknown error</string>
+    <string name="toast_sth_went_wrong">Something went wrong, please restart app or try later</string>
 
-    <string name="pref_dark_mode">Dark mode</string>
+    <string name="pref_user_options">com.osinniy.school.PREFERENCES_USER_OPTIONS</string>
+    <string name="pref_settings">com.osinniy.school.SETTINGS</string>
+    <string name="pref_main">com.osinniy.school.PREFERENCES_MAIN</string>
+
+    <string name="settings_dark_mode">Dark mode</string>
+
+    <string name="title_create">CREATE</string>
+    <string name="title_app_bar_create_group">Create group</string>
+
+    <string name="content_desc_create_group">Button which used to create a new group</string>
 
 </resources>

@@ -5,4 +5,7 @@
     <dimen name="card_corner_radius">12dp</dimen>
 
     <dimen name="line_view_width">155dp</dimen>
+
+    <dimen name="create_new_group_margin_between_edits">24dp</dimen>
+    <dimen name="create_new_group_edits_horizontal_margin">16dp</dimen>
 </resources>

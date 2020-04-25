@@ -5,19 +5,20 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        applicationId "com.osinniy.dz"
+        applicationId "com.osinniy.school"
         minSdkVersion 22
         targetSdkVersion 29
         versionCode 1
         versionName "0.1"
-        versionNameSuffix "_deb"
+
+//        FIXME resConfigs doesn't works
+//            resConfigs "en", "ru"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-//            resConfigs "en", "ru"
             shrinkResources true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -25,9 +26,15 @@ android {
 
         beta {
             versionNameSuffix "_beta"
-//            resConfigs "en", "ru"
             shrinkResources true
             minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            versionNameSuffix "_deb"
+            shrinkResources false
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -59,12 +66,19 @@ dependencies {
 
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
-    implementation 'com.firebaseui:firebase-ui-auth:6.2.0'
-    implementation 'com.google.firebase:firebase-firestore:21.4.1'
+    implementation 'com.google.firebase:firebase-firestore:21.4.2'
+    implementation 'com.google.firebase:firebase-analytics:17.3.0'
+    implementation 'com.google.firebase:firebase-crashlytics:17.0.0-beta03'
+    implementation 'com.google.firebase:firebase-perf:19.0.5'
+    implementation 'com.google.firebase:firebase-inappmessaging-display:19.0.4'
 
+    implementation 'com.firebaseui:firebase-ui-auth:6.2.1'
     implementation 'com.facebook.android:facebook-login:4.42.0'
 
+    // TODO add licenses
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'com.github.clans:fab:1.6.4'
+    implementation 'com.hannesdorfmann:adapterdelegates4:4.3.0'
 
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
@@ -72,3 +86,8 @@ dependencies {
 }
 
 apply plugin: 'com.google.gms.google-services'
+
+apply plugin: 'com.google.firebase.crashlytics'
+
+// TODO enable in release ver
+//apply plugin: 'com.google.firebase.firebase-perf'

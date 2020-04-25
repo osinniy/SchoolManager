@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.osinniy.dz">
+    package="com.osinniy.school">
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:allowBackup="true"
@@ -16,22 +26,31 @@
         <activity android:name=".ui.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.splash.SplashGroupActivity" />
+        <activity android:name=".ui.splash.GroupsActivity" />
 
-        <activity android:name=".ui.nav.MainActivity"
+        <activity android:name=".ui.splash.CreateNewGroupActivity" />
+
+        <activity
+            android:name=".ui.user.MainActivity"
             android:windowSoftInputMode="adjustResize" />
 
-        <activity android:name=".ui.userdata.UserActivity" />
+        <activity
+            android:name=".ui.admin.AdminActivity"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity android:name=".ui.user.UserActivity" />
 
         <service
-            android:name=".database.FireBackgroundServices"
-            android:exported="false"
-            android:foregroundServiceType="dataSync" />
+            android:name=".background.FireBackgroundService"
+            android:exported="false" />
+
+        <service
+            android:name=".background.NotificationService"
+            android:exported="false" />
 
     </application>
 

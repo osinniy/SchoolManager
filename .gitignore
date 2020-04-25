@@ -1,5 +1,7 @@
 *.iml
+*.jks
 .gradle
+/settings.gradle
 /local.properties
 /.idea/caches
 /.idea/libraries
@@ -12,7 +14,11 @@
 /captures
 .externalNativeBuild
 .cxx
+.settings
+/app/.settings
 /app/src/test/
 /app/src/androidTest/
 /app/build/
 /app/libs/
+/app/google-services.json
+/app/proguard-rules.pro

@@ -8,18 +8,18 @@
     <fragment
         android:id="@+id/navigation_dashboard"
         android:label="@string/nav_dashboard"
-        android:name="com.osinniy.dz.ui.dashboard.DashboardFragment"
+        android:name="com.osinniy.school.ui.user.dashboard.DashboardFragment"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_history"
         android:label="@string/nav_history"
-        android:name="com.osinniy.dz.ui.history.HistoryFragment"
+        android:name="com.osinniy.school.ui.history.HistoryFragment"
         tools:layout="@layout/fragment_history" />
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:label="@string/nav_notifications"
-        android:name="com.osinniy.dz.ui.notifications.NotificationsFragment"
+        android:name="com.osinniy.school.ui.user.notifications.NotificationsFragment"
         tools:layout="@layout/fragment_notifications" />
 </navigation>
