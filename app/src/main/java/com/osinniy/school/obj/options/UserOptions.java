@@ -9,6 +9,8 @@ import androidx.annotation.Nullable;
 import com.osinniy.school.R;
 import com.osinniy.school.firebase.Factory;
 
+import javax.annotation.Nonnull;
+
 public class UserOptions {
 
     static final String USERNAME = "username";
@@ -19,8 +21,8 @@ public class UserOptions {
     private String username;
     @Nullable
     private Uri photoUri;
-    @Nullable
-    private String groupId;
+    @Nonnull
+    private String groupId = "null";
     private boolean isAdmin;
 
 
@@ -33,7 +35,7 @@ public class UserOptions {
         return photoUri;
     }
 
-    @Nullable
+    @Nonnull
     public String getGroupId() {
         return groupId;
     }
@@ -43,6 +45,7 @@ public class UserOptions {
     }
 
 
+    @Nonnull
     public static UserOptions getCurrent() {
         return Factory.getInstance().getUserDao().getOptions();
     }
@@ -56,7 +59,7 @@ public class UserOptions {
         return new UserOptions().edit()
                 .setUsername(pref.getString(USERNAME, "User"))
                 .setPhotoUri(Uri.parse(pref.getString(PHOTO_URI, "null")))
-                .setGroupId(pref.getString(GROUP_ID, null))
+                .setGroupId(pref.getString(GROUP_ID, "null"))
                 .setAdmin(pref.getBoolean(IS_ADMIN, false))
                 .commit();
     }
@@ -64,7 +67,7 @@ public class UserOptions {
 
     public void writeToShared(Context c) {
         c.getSharedPreferences(c.getString(R.string.pref_user_options), Context.MODE_PRIVATE).edit()
-                .putString(USERNAME, username)
+                .putString(USERNAME, username != null ? username : "User")
                 .putString(PHOTO_URI, photoUri != null ? photoUri.toString() : "null")
                 .putString(GROUP_ID, groupId)
                 .putBoolean(IS_ADMIN, isAdmin)
@@ -94,7 +97,7 @@ public class UserOptions {
             return this;
         }
 
-        public Editor setGroupId(@Nullable String id) {
+        public Editor setGroupId(@Nonnull String id) {
             options.groupId = id;
             return this;
         }

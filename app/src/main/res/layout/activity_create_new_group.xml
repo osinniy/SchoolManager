@@ -14,7 +14,7 @@
             android:id="@+id/cr_new_gr_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:title="@string/title_app_bar_create_group"
+            app:title="@string/app_bar_create_group"
             app:menu="@menu/create_new_group_activity_app_bar_menu"
             app:navigationIcon="@drawable/ic_arrow_back" />
 

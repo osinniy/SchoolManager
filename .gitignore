@@ -22,3 +22,4 @@
 /app/libs/
 /app/google-services.json
 /app/proguard-rules.pro
+/app/src/main/res/drawable/profile_photo_demo.png

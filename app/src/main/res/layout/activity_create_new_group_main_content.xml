@@ -13,7 +13,9 @@
         android:layout_marginTop="@dimen/create_new_group_margin_between_edits"
         android:hint="@string/text_group_name"
         app:endIconDrawable="@drawable/ic_cancel"
-        app:endIconMode="clear_text">
+        app:endIconMode="clear_text"
+        app:counterEnabled="true"
+        app:counterMaxLength="20">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_group_name"
@@ -29,7 +31,9 @@
         android:layout_marginTop="@dimen/create_new_group_margin_between_edits"
         android:hint="@string/text_description"
         app:endIconDrawable="@drawable/ic_cancel"
-        app:endIconMode="clear_text">
+        app:endIconMode="clear_text"
+        app:counterEnabled="true"
+        app:counterMaxLength="200">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_group_desc"

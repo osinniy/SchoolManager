@@ -9,6 +9,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.osinniy.school.R;
+import com.osinniy.school.app.ActivityStack;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,22 +19,18 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        NavController navController = Navigation.findNavController(this, R.id.root_fragment);
+        ActivityStack.getInstance().add(this);
+
+        BottomNavigationView navView = findViewById(R.id.nav_view_main);
+        NavController navController = Navigation.findNavController(this, R.id.root_fragment_main);
         NavigationUI.setupWithNavController(navView, navController);
     }
 
 
-    private void createNotificationChannels() {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            String name = getString(R.string.channel_name);
-//            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-//            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
-//            channel.setDescription(getString(R.string.channel_description));
-//
-//            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-//            notificationManager.createNotificationChannel(channel);
-//        }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ActivityStack.getInstance().remove(this);
     }
 
 }

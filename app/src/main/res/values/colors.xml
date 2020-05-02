@@ -2,5 +2,34 @@
 <resources>
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="colorPrimarySelected">#4B00D1</color>
+    <color name="colorAccent">#03DAC6</color>
+    <color name="colorAccentDark">#018786</color>
+
+    <color name="blueThemeColorPrimary">#304FFE</color>
+    <color name="blueThemeColorPrimaryDark">#0026CA</color>
+    <color name="blueThemeColorAccent">#40C4FF</color>
+    <color name="blueThemeColorAccentDark">#0094CC</color>
+    <color name="blueThemePrimaryText">#FFFFFF</color>
+    <color name="blueThemeSecondaryText">#000000</color>
+
+<!--    <color name="profile_color_primary">#26A69A</color>-->
+<!--    <color name="profile_color_primary_dark">#009688</color>-->
+<!--    <color name="profile_color_accent">#048B7A</color>-->
+<!--    <color name="profile_text_color">#FFFFFF</color>-->
+<!--    <color name="profile_username_text_color">#FFFFFF</color>-->
+
+    <color name="profile_color_primary">#FFFFFF</color>
+    <color name="profile_color_primary_dark">@color/colorPrimaryDark</color>
+    <color name="profile_color_accent">@color/colorPrimary</color>
+    <color name="profile_main_text_color">#000000</color>
+    <color name="profile_username_text_color">#FFFFFF</color>
+
+    <color name="fab_color_normal">#DB4336</color>
+    <color name="fab_color_pressed">#F3A8A2</color>
+    <color name="fab_color_ripple">#CCDB4336</color>
+    <color name="fab_shadow_color">#66000000</color>
+    <color name="fab_labels_text_color">#FFFFFF</color>
+    <color name="fab_labels_background_color_normal">#99000000</color>
+    <color name="fab_labels_background_color_pressed">#B3000000</color>
 </resources>

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/profile_color_primary"
+    android:minHeight="800dp"
+    tools:context=".ui.ProfileActivity">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/profile_guideline_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/profile_guideline_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <View
+        android:id="@+id/profile_bg_view"
+        android:layout_width="0dp"
+        android:layout_height="112dp"
+        android:layout_marginTop="148dp"
+        android:background="@color/profile_color_accent"
+        app:layout_constraintEnd_toStartOf="@id/profile_guideline_right"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/profile_guideline_left"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/profile_photo"
+        android:layout_width="0dp"
+        android:layout_height="112dp"
+        android:background="@drawable/profile_bg"
+        app:layout_constraintBottom_toTopOf="@id/profile_bg_view"
+        app:layout_constraintDimensionRatio="w,1:1"
+        app:layout_constraintEnd_toStartOf="@id/profile_guideline_right"
+        app:layout_constraintStart_toStartOf="@id/profile_guideline_left"
+        app:layout_constraintTop_toTopOf="@id/profile_bg_view"
+        tools:src="@drawable/profile_photo_demo"
+        android:contentDescription="@string/desc_profile_photo" />
+
+    <TextView
+        android:id="@+id/profile_username_text"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/profile_username_text_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="@id/profile_photo"
+        app:layout_constraintStart_toStartOf="@id/profile_photo"
+        app:layout_constraintTop_toBottomOf="@id/profile_photo"
+        tools:text="Alex Osinniy" />
+
+    <EditText
+        android:id="@+id/profile_username_edit"
+        android:layout_width="132dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="23dp"
+        android:hint="@string/text_username"
+        android:enabled="false"
+        android:importantForAutofill="no"
+        android:inputType="textPersonName"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/profile_username_text_color"
+        android:textColorHint="#99FFFFFF"
+        android:textAlignment="center"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/profile_bg_view"
+        app:layout_constraintEnd_toEndOf="@id/profile_photo"
+        app:layout_constraintStart_toStartOf="@id/profile_photo" />
+
+    <ImageButton
+        android:id="@+id/profile_edit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/desc_edit"
+        android:onClick="onEditUsernameButtonClick"
+        android:src="@drawable/ic_edit"
+        app:layout_constraintEnd_toEndOf="@id/profile_bg_view"
+        app:layout_constraintTop_toTopOf="@id/profile_bg_view" />
+
+    <TextView
+        android:id="@+id/profile_text_info"
+        style="@style/ProfileTitleTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:gravity="start"
+        android:text="@string/text_info"
+        android:textAlignment="textStart"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@id/profile_guideline_right"
+        app:layout_constraintStart_toStartOf="@id/profile_guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/profile_bg_view" />
+
+    <View
+        android:id="@+id/profile_line_view"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/profile_color_primary_dark"
+        app:layout_constraintEnd_toEndOf="@id/profile_guideline_right"
+        app:layout_constraintStart_toStartOf="@id/profile_guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/profile_text_info" />
+
+    <TextView
+        android:id="@+id/profile_title_group"
+        style="@style/ProfileTitleTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="38dp"
+        android:text="@string/text_profile_group"
+        app:layout_constraintStart_toStartOf="@id/profile_guideline_left"
+        app:layout_constraintTop_toTopOf="@id/profile_line_view" />
+
+    <TextView
+        android:id="@+id/profile_title_user_id"
+        style="@style/ProfileTitleTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/text_profile_user"
+        app:layout_constraintStart_toStartOf="@id/profile_guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/profile_title_group" />
+
+    <TextView
+        android:id="@+id/profile_text_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/profile_main_text_color"
+        android:textSize="13sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/profile_title_group"
+        app:layout_constraintStart_toEndOf="@id/profile_title_group"
+        tools:text="THIS IS A TEST GROUP (hJs3S8)" />
+
+    <TextView
+        android:id="@+id/profile_text_user_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/profile_main_text_color"
+        android:textSize="12sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/profile_title_user_id"
+        app:layout_constraintStart_toEndOf="@id/profile_title_user_id"
+        tools:text="sPzGpApJJDPqOLKV6XzkSoEvmGw2" />
+
+    <ImageButton
+        android:id="@+id/profile_delete_group_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="3dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/desc_delete_group"
+        android:onClick="onDeleteGroupButtonClick"
+        android:src="@drawable/ic_delete"
+        app:layout_constraintBottom_toBottomOf="@id/profile_text_group"
+        app:layout_constraintEnd_toStartOf="@id/profile_leave_group_button"
+        app:layout_constraintTop_toTopOf="@id/profile_text_group" />
+
+    <ImageButton
+        android:id="@+id/profile_leave_group_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/desc_leave"
+        android:onClick="onLeaveGroupButtonClick"
+        android:src="@drawable/ic_exit"
+        app:layout_constraintBottom_toBottomOf="@id/profile_text_group"
+        app:layout_constraintEnd_toEndOf="@id/profile_guideline_right"
+        app:layout_constraintTop_toTopOf="@id/profile_text_group" />
+
+    <ImageButton
+        android:id="@+id/profile_delete_account_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="3dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/desc_delete_account"
+        android:onClick="onDeleteAccountButtonClick"
+        android:src="@drawable/ic_delete"
+        app:layout_constraintBottom_toBottomOf="@id/profile_text_user_id"
+        app:layout_constraintEnd_toStartOf="@id/profile_sign_out_button"
+        app:layout_constraintTop_toTopOf="@id/profile_text_user_id" />
+
+    <ImageButton
+        android:id="@+id/profile_sign_out_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/desc_sign_out"
+        android:onClick="onSignOutButtonClick"
+        android:src="@drawable/ic_exit"
+        app:layout_constraintBottom_toBottomOf="@id/profile_text_user_id"
+        app:layout_constraintEnd_toEndOf="@id/profile_guideline_right"
+        app:layout_constraintTop_toTopOf="@id/profile_text_user_id" />
+
+    <!--    <Button-->
+    <!--        android:layout_width="128dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_gravity="center"-->
+    <!--        android:gravity="center"-->
+    <!--        android:onClick="onExitGroupButtonClick"-->
+    <!--        android:text="@string/text_leave_group" />-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

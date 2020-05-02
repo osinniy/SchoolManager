@@ -13,6 +13,8 @@ import java.util.Objects;
 
 public final class Status {
 
+    public static final String IS_ONLINE = "online";
+
     public static boolean isOnline;
     public static boolean isGroupCodesDownloaded;
     public static boolean isOptionsDownloaded;
@@ -28,12 +30,18 @@ public final class Status {
     }
 
 
-    public static boolean checkUnavailableAction(Context c, View v) {
+    public static boolean checkInternet(Context c, View v) {
         if (!Status.isOnline(c)) {
-            Snackbar.make(v, R.string.snackbar_unavailable_action, Snackbar.LENGTH_LONG).show();
+            Snackbar.make(v, R.string.toast_no_internet_connection, Snackbar.LENGTH_LONG).show();
             return true;
         }
         return false;
+    }
+
+
+    public static void switchMode(Context c, View v) {
+        if (!Status.isOnline(c))
+            Snackbar.make(v, R.string.snackbar_offline_mode, Snackbar.LENGTH_SHORT).show();
     }
 
 

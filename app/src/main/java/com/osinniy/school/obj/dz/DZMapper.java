@@ -1,5 +1,7 @@
 package com.osinniy.school.obj.dz;
 
+import android.util.SparseArray;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -29,7 +31,7 @@ public class DZMapper {
 
     public static DZ restoreInstance(@NonNull Map<String, Object> map) {
         return new DZ(
-                (Map<Integer, String>) map.get(Docs.HOMEWORK),
+                (SparseArray<String>) map.get(Docs.HOMEWORK),
                 ((Timestamp) map.get(Docs.CREATION_DATE)).toDate(),
                 ((Timestamp) map.get(Docs.EDIT_DATE)).toDate(),
                 String.valueOf(map.get(Docs.ID)),
@@ -43,7 +45,7 @@ public class DZMapper {
     public static DZ restoreInstance(@NonNull DocumentSnapshot doc) {
         if (doc.getData() == null) return null;
         return new DZ(
-                (Map<Integer, String>) doc.get(Docs.HOMEWORK),
+                (SparseArray<String>) doc.get(Docs.HOMEWORK),
                 doc.getTimestamp(Docs.CREATION_DATE).toDate(),
                 doc.getTimestamp(Docs.EDIT_DATE).toDate(),
                 doc.getId(),

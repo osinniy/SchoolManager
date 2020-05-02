@@ -4,9 +4,9 @@ import android.util.Log;
 
 import androidx.annotation.CheckResult;
 
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.osinniy.school.firebase.Docs;
-import com.osinniy.school.firebase.groups.GroupManager;
 import com.osinniy.school.obj.options.UserOptions;
 
 import java.util.Calendar;
@@ -33,7 +33,7 @@ public class Timetable {
 
     public static void refresh() {
         FirebaseFirestore.getInstance()
-                .collection(GroupManager.getCurrentGroup().getId())
+                .collection(UserOptions.getCurrent().getGroupId())
                 .document(Docs.DOC_TIMETABLE)
                 .get()
                 .addOnSuccessListener(snapshot -> {
@@ -45,6 +45,8 @@ public class Timetable {
                 })
                 .addOnFailureListener(e -> {
                     Log.e(Docs.TAG_FIRESTORE_READ, "Timetable refreshing was failed: ", e);
+                    FirebaseCrashlytics.getInstance().log("Timetable refreshing was failed");
+                    FirebaseCrashlytics.getInstance().recordException(e);
                 });
     }
 
@@ -54,7 +56,7 @@ public class Timetable {
         Map<String, Object> newData = getAll();
 
         FirebaseFirestore.getInstance()
-                .collection(GroupManager.getCurrentGroup().getId())
+                .collection(UserOptions.getCurrent().getGroupId())
                 .document(Docs.DOC_TIMETABLE)
                 .update(newData);
     }

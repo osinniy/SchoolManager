@@ -1,8 +1,9 @@
 package com.osinniy.school.obj.imp;
 
-import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 
 import com.osinniy.school.obj.Bindable;
+import com.osinniy.school.utils.Util;
 
 import java.util.Date;
 import java.util.Map;
@@ -16,25 +17,25 @@ public class Important implements Bindable {
     private final Date creationDate;
     private Date editDate;
 
-    @Nullable
-    private final String id;
+    @NonNull
+    private String id;
     private final String uid;
     private boolean isChanged;
 
 
-    public Important(String name, String text, @Nullable String id, String uid) {
+    public Important(String name, String text, String uid) {
         this.name = name;
         this.text = text;
-        this.id = id;
         this.uid = uid;
 
+        id = Util.generateID();
         creationDate = new Date();
         isChanged = false;
     }
 
 
     Important(String name, String text, Date creationDate, Date editDate,
-              @Nullable String id, String uid, boolean isChanged) {
+              @NonNull String id, String uid, boolean isChanged) {
         this.name = name;
         this.text = text;
         this.creationDate = creationDate;
@@ -54,7 +55,7 @@ public class Important implements Bindable {
 
 
     @Override
-    @Nullable
+    @NonNull
     public String getId() {
         return id;
     }

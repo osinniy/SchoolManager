@@ -4,10 +4,9 @@
 
     <item
         android:id="@+id/menu_check"
-        android:icon="@drawable/ic_check"
+        android:icon="@drawable/ic_done"
         android:title="@string/title_create"
         android:enabled="false"
-        android:contentDescription="@string/content_desc_create_group"
         app:showAsAction="ifRoom" />
 
 </menu>

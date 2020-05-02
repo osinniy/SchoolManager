@@ -1,18 +1,12 @@
 package com.osinniy.school.firebase.firestore;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.osinniy.school.firebase.Docs;
-import com.osinniy.school.firebase.user.UserDao;
-import com.osinniy.school.obj.Bindable;
 import com.osinniy.school.obj.dz.DZ;
 import com.osinniy.school.obj.dz.DZMapper;
 import com.osinniy.school.obj.imp.ImpMapper;
@@ -22,102 +16,88 @@ import com.osinniy.school.utils.Schedulers;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
-
-import static com.osinniy.school.ui.user.dashboard.DashboardFragment.TAG_METHOD_CALL;
 
 public class FirestoreDao implements Dao {
 
-    private final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-    private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private final FirebaseFirestore fs = FirebaseFirestore.getInstance();
+
+    private boolean isExceptionHandled;
 
 
     @Override
-    public void getItems(WeakReference<GetItemListener> listenerRef) {
-        getUserQuery()
-                .get()
+    public void load(WeakReference<GetItemListener> listenerRef) {
+        getImportantQuery().get()
                 .addOnSuccessListener(Schedulers.getIo(), snapshots -> {
-                    List<Bindable> itemsList = parseItems(snapshots.getDocuments());
+                    List<DZ> dzList = parseDZ(snapshots.getDocuments());
                     GetItemListener listener = listenerRef.get();
-                    if (listener != null) listener.onItemsLoaded(itemsList);
+                    if (listener != null) listener.onDZLoaded(dzList);
                 })
-                .addOnFailureListener(e -> {
+                .addOnFailureListener(Schedulers.getIo(), e -> {
+                    if (isExceptionHandled) return;
                     GetItemListener listener = listenerRef.get();
-                    if (listener != null) listener.onItemsLoadFailed();
+                    if (listener != null) listener.onItemsLoadFailed(e);
+                    isExceptionHandled = true;
+                });
+
+        getDZQuery().get()
+                .addOnSuccessListener(Schedulers.getIo(), snapshots -> {
+                    List<Important> impList = parseImportant(snapshots.getDocuments());
+                    GetItemListener listener = listenerRef.get();
+                    if (listener != null) listener.onImportantLoaded(impList);
+                })
+                .addOnFailureListener(Schedulers.getIo(), e -> {
+                    if (isExceptionHandled) return;
+                    GetItemListener listener = listenerRef.get();
+                    if (listener != null) listener.onItemsLoadFailed(e);
+                    isExceptionHandled = true;
                 });
     }
 
 
-    @Override
-    public ListenerRegistration listen(WeakReference<GetItemListener> listenerRef) {
-        Log.d(TAG_METHOD_CALL, "Method < listen > in FirebaseDao called");
-        return getUserQuery()
-                .addSnapshotListener(Schedulers.getIo(), (snapshots, e) -> {
-                    if (snapshots != null) {
-                        List<Bindable> itemsList = parseItems(snapshots.getDocuments());
-                        GetItemListener listener = listenerRef.get();
-                        if (listener != null) listener.onItemsLoaded(itemsList);
-                    }
-                    else if (e != null) {
-                        GetItemListener listener = listenerRef.get();
-                        if (listener != null) listener.onItemsLoadFailed();
-                    }
-                });
+    private List<DZ> parseDZ(List<DocumentSnapshot> documents) {
+        List<DZ> dzList = new ArrayList<>(documents.size());
+        for (DocumentSnapshot doc : documents)
+            dzList.add(DZMapper.restoreInstance(doc));
+        return dzList;
     }
 
 
-    private List<Bindable> parseItems(List<DocumentSnapshot> documents) {
-        List<Bindable> itemsList = new ArrayList<>(documents.size());
-        for (DocumentSnapshot snapshot : documents) {
-            if (snapshot.contains(Docs.HOMEWORK))
-                itemsList.add(DZMapper.restoreInstance(snapshot));
-            else if (snapshot.contains(Docs.TEXT))
-                itemsList.add(ImpMapper.restoreInstance(snapshot));
-        }
-        return itemsList;
+    private List<Important> parseImportant(List<DocumentSnapshot> documents) {
+        List<Important> impList = new ArrayList<>(documents.size());
+        for (DocumentSnapshot doc : documents)
+            impList.add(ImpMapper.restoreInstance(doc));
+        return impList;
     }
 
 
-    private Query getUserQuery() {
-        return firestore.collection(Docs.COL_DZ)
-                .whereEqualTo(Docs.UID, user.getUid());
+    private Query getImportantQuery() {
+        return fs.collection(UserOptions.getCurrent().getGroupId())
+                .document(Docs.DOC_DATA)
+                .collection(Docs.COL_IMPORTANT)
+                .whereGreaterThan(Docs.CREATION_DATE, new Timestamp(getWeekAgoDate()));
     }
 
 
-    /**
-     * @deprecated use {@link UserDao#addUser()}
-     */
-    @Override
-    @Deprecated
-    public void addInfoAboutNewUser(FirebaseUser newUser, boolean[] options) {
-        Map<String, Object> user = new HashMap<>();
+    private Query getDZQuery() {
+        return fs.collection(UserOptions.getCurrent().getGroupId())
+                .document(Docs.DOC_DATA)
+                .collection(Docs.COL_DZ)
+                .whereGreaterThan(Docs.CREATION_DATE, new Timestamp(getWeekAgoDate()));
+    }
 
-        user.put(Docs.EMAIL, newUser.getEmail());
-        user.put(Docs.USERNAME, newUser.getDisplayName());
-        user.put(Docs.UID, newUser.getUid());
 
-        if (options[0]) {
-            firestore.collection(Docs.COL_ADMINS).add(user)
-                    .addOnFailureListener(e -> {
-                        Log.e(Docs.TAG_FIRESTORE_WRITE, "Failed to write to collection < "
-                                + Docs.COL_ADMINS + " > :", e);
-                    });
-        } else {
-            firestore.collection(Docs.DOC_GROUP_USERS).add(user)
-                    .addOnFailureListener(e -> {
-                        Log.e(Docs.TAG_FIRESTORE_WRITE, "Failed to write to collection < "
-                                + Docs.DOC_GROUP_USERS + " > :", e);
-                    });
-        }
+    private Date getWeekAgoDate() {
+        long weekMillis = 1000 * 60 * 60 * 24 * 7;
+        return new Date(new Date().getTime() - weekMillis);
     }
 
 
     @Override
     public void addDZ(@NonNull DZ dz) {
         String groupId = UserOptions.getCurrent().getGroupId();
-        firestore.collection(groupId).document(Docs.DOC_DATA).collection(Docs.COL_DZ)
+        fs.collection(groupId).document(Docs.DOC_DATA).collection(Docs.COL_DZ)
                 .document(dz.getId()).set(DZMapper.createMap(dz));
     }
 
@@ -125,7 +105,7 @@ public class FirestoreDao implements Dao {
     @Override
     public void deleteDZ(@NonNull DZ dz) {
         String groupId = UserOptions.getCurrent().getGroupId();
-        firestore.collection(groupId).document(Docs.DOC_DATA).collection(Docs.COL_DZ)
+        fs.collection(groupId).document(Docs.DOC_DATA).collection(Docs.COL_DZ)
                 .document(dz.getId()).delete();
     }
 
@@ -133,7 +113,7 @@ public class FirestoreDao implements Dao {
     @Override
     public void addImportant(@NonNull Important imp) {
         String groupId = UserOptions.getCurrent().getGroupId();
-        firestore.collection(groupId).document(Docs.DOC_DATA).collection(Docs.COL_IMPORTANT)
+        fs.collection(groupId).document(Docs.DOC_DATA).collection(Docs.COL_IMPORTANT)
                 .document(imp.getId()).set(ImpMapper.createMap(imp));
     }
 
@@ -141,7 +121,7 @@ public class FirestoreDao implements Dao {
     @Override
     public void deleteImportant(@NonNull Important imp) {
         String groupId = UserOptions.getCurrent().getGroupId();
-        firestore.collection(groupId).document(Docs.DOC_DATA).collection(Docs.COL_IMPORTANT)
+        fs.collection(groupId).document(Docs.DOC_DATA).collection(Docs.COL_IMPORTANT)
                 .document(imp.getId()).delete();
     }
 

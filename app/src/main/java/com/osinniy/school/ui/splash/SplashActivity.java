@@ -1,5 +1,6 @@
 package com.osinniy.school.ui.splash;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,8 +34,7 @@ import java.util.List;
 public class SplashActivity extends AppCompatActivity {
 
     private static final String TAG = "Auth";
-    private static final String ERROR_CODE = "firebaseUiExceptionErrorCode";
-    private static final String PREF_NUMBER_OF_LAUNCHES = "numberOfLaunches";
+    private static final String ERROR_CODE = "fui_exception_error_code";
 
     private static final int RC_SIGN_IN = 777;
 
@@ -64,15 +65,15 @@ public class SplashActivity extends AppCompatActivity {
                 AuthUI.getInstance().createSignInIntentBuilder()
                         .setAvailableProviders(providers)
                         .setTheme(R.style.AppTheme)
-                        .setLogo(R.mipmap.ic_launcher)
+                        .setLogo(R.mipmap.ic_main)
                         .setIsSmartLockEnabled(!BuildConfig.DEBUG, true)
                         .build(),
                 RC_SIGN_IN
         );
     }
 
-
     @Override
+    @SuppressLint("SwitchIntDef")
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == RC_SIGN_IN) {
             IdpResponse response = IdpResponse.fromResultIntent(data);
@@ -83,12 +84,23 @@ public class SplashActivity extends AppCompatActivity {
                             .setPhotoUri(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl())
                             .setUsername(FirebaseAuth.getInstance().getCurrentUser().getDisplayName())
                             .apply(this);
+                    userDao.addUser();
+                    startNextActivity(userDao.getOptions());
+                    finish();
+                }, () -> {
+                    Util.showToast(this, R.string.toast_sth_went_wrong_re_authenticate);
+                    AuthUI.getInstance().signOut(this);
+                    finish();
                 });
-                startActivity(new Intent(this, GroupsActivity.class));
+                if (!BuildConfig.DEBUG) {
+                    Bundle params = new Bundle(1);
+                    params.putString(FirebaseAnalytics.Param.METHOD, response.getProviderType());
+                    FirebaseAnalytics.getInstance(this).logEvent(FirebaseAnalytics.Event.LOGIN, params);
+                }
             }
             else {
                 if (response == null) {
-                    // User pressed back button
+//                  User pressed back button
                     Util.showToast(this, R.string.toast_sign_in_cancelled);
                 }
                 else if (response.getError() != null) {
@@ -123,24 +135,10 @@ public class SplashActivity extends AppCompatActivity {
                             Log.e(TAG, "Sign-in error: ", response.getError());
                             crashlytics.recordException(response.getError());
                             break;
-
-                        case ErrorCodes.ANONYMOUS_UPGRADE_MERGE_CONFLICT:
-                        case ErrorCodes.EMAIL_LINK_CROSS_DEVICE_LINKING_ERROR:
-                        case ErrorCodes.EMAIL_LINK_DIFFERENT_ANONYMOUS_USER_ERROR:
-                        case ErrorCodes.EMAIL_LINK_PROMPT_FOR_EMAIL_ERROR:
-                        case ErrorCodes.EMAIL_LINK_WRONG_DEVICE_ERROR:
-                        case ErrorCodes.EMAIL_MISMATCH_ERROR:
-                        case ErrorCodes.ERROR_GENERIC_IDP_RECOVERABLE_ERROR:
-                        case ErrorCodes.ERROR_USER_DISABLED:
-                        case ErrorCodes.INVALID_EMAIL_LINK_ERROR:
-                        case ErrorCodes.PLAY_SERVICES_UPDATE_CANCELLED:
-                            Util.showToast(this, R.string.toast_unknown_error);
-                            crashlytics.recordException(response.getError());
-                            break;
                     }
                 }
+                finish();
             }
-            finish();
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -149,8 +147,8 @@ public class SplashActivity extends AppCompatActivity {
     private void prepare() {
         userDao.setOptions(UserOptions.fromShared(this));
 
-        if (userDao.getOptions().getGroupId() != null)
-            Factory.getInstance().getGroupDao().reloadGroupData();
+//        if (GroupManager.isUserInGroup())
+//            Schedulers.getHandler().post(() -> Factory.getInstance().getGroupDao().reloadGroupData());
 
 //        FirebaseCrashlytics crashlytics = FirebaseCrashlytics.getInstance();
 //        crashlytics.setCrashlyticsCollectionEnabled(false);
@@ -170,8 +168,8 @@ public class SplashActivity extends AppCompatActivity {
     }
 
 
-    private void startNextActivity(UserOptions options) {
-        if (options.getGroupId() != null) {
+    public void startNextActivity(UserOptions options) {
+        if (!options.getGroupId().equals("null")) {
             if (options.isAdmin())
                 startActivity(new Intent(this, AdminActivity.class));
             else

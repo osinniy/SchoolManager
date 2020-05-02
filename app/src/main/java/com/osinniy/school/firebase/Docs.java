@@ -3,8 +3,6 @@ package com.osinniy.school.firebase;
 public final class Docs {
 
 //    collections
-    @Deprecated
-    public static final String COL_ADMINS    = "Admins";
     public static final String COL_IMPORTANT = "Important";
     public static final String COL_DZ        = "DZ";
     public static final String COL_USERS     = "Users";
@@ -20,8 +18,6 @@ public final class Docs {
     public static final String REF_GROUP_CODES = "/Groups/GroupCodes";
 
 //    info about user
-    public static final String EMAIL    = "email";
-    public static final String USERNAME = "username";
     public static final String UID      = "uid";
 
 //    info about dz obj
@@ -30,9 +26,10 @@ public final class Docs {
 //    info about bindable classes
     public static final String IS_CHANGED = "changed";
 
-//    info about groups
-    public static final String CODE           = "code";
+//    group metadata
+    public static final String CODE = "code";
     public static final String NUM_OF_MEMBERS = "number_of_members";
+    public static final String ADMIN_ID = "admin_id";
 
 //    log tags
     public static final String TAG_FIRESTORE_READ  = "Firestore Read";

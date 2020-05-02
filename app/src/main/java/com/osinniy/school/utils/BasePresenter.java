@@ -1,7 +1,5 @@
 package com.osinniy.school.utils;
 
-import android.os.Handler;
-
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle;
@@ -16,8 +14,6 @@ import java.util.WeakHashMap;
 import java.util.concurrent.Future;
 
 public abstract class BasePresenter<Listener extends LifecycleOwner> implements LifecycleObserver {
-
-    private final Handler handler = Schedulers.getHandler();
 
     @NonNull
     private final WeakReference<Listener> listener;
@@ -37,7 +33,7 @@ public abstract class BasePresenter<Listener extends LifecycleOwner> implements 
 
 
     protected void postOnMainThread(ListenerRunnable<Listener> listenerRunnable) {
-        handler.post(() -> {
+        Schedulers.getHandler().post(() -> {
             Listener listener = this.listener.get();
             if (listener != null) listenerRunnable.executeWithListener(listener);
         });

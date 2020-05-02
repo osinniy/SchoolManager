@@ -2,9 +2,6 @@ package com.osinniy.school.firebase.firestore;
 
 import androidx.annotation.NonNull;
 
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.ListenerRegistration;
-import com.osinniy.school.obj.Bindable;
 import com.osinniy.school.obj.dz.DZ;
 import com.osinniy.school.obj.imp.Important;
 
@@ -13,13 +10,7 @@ import java.util.List;
 
 public interface Dao {
 
-    @Deprecated
-    void addInfoAboutNewUser(FirebaseUser newUser, boolean[] additional);
-
-    void getItems(WeakReference<GetItemListener> listener);
-
-//    FIXME listenDZ() called 2 times during navigation
-    ListenerRegistration listen(WeakReference<GetItemListener> listener);
+    void load(WeakReference<GetItemListener> listener);
 
     void addDZ(@NonNull DZ dz);
 
@@ -31,9 +22,11 @@ public interface Dao {
 
     interface GetItemListener {
 
-        void onItemsLoaded(List<Bindable> bindableList);
+        void onDZLoaded(List<DZ> dzList);
 
-        void onItemsLoadFailed();
+        void onImportantLoaded(List<Important> importantList);
+
+        void onItemsLoadFailed(Exception e);
 
     }
 

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.MenuItem;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.osinniy.school.R;
+import com.osinniy.school.app.ActivityStack;
 import com.osinniy.school.firebase.groups.GroupManager;
 import com.osinniy.school.obj.groups.GroupMetadata;
 import com.osinniy.school.obj.options.UserOptions;
@@ -31,6 +31,8 @@ public class CreateNewGroupActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_create_new_group);
 
+        ActivityStack.getInstance().add(this);
+
         appBar = findViewById(R.id.cr_new_gr_toolbar);
         editGroupName = findViewById(R.id.edit_group_name);
         editGroupDesc = findViewById(R.id.edit_group_desc);
@@ -48,23 +50,25 @@ public class CreateNewGroupActivity extends AppCompatActivity {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
             public void afterTextChanged(Editable s) {
-                MenuItem itemCheck = appBar.getMenu().findItem(R.id.menu_check);
-                if (s.toString().equals("")) itemCheck.setEnabled(false);
-                else itemCheck.setEnabled(true);
+                appBar.getMenu().findItem(R.id.menu_check).setEnabled(
+                        (s.length() <= 20 && s.length() > 0) && (editGroupDesc.length() <= 200)
+                );
+            }
+        });
+        editGroupDesc.addTextChangedListener(new TextWatcher() {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void afterTextChanged(Editable s) {
+                appBar.getMenu().findItem(R.id.menu_check).setEnabled(
+                        (editGroupName.length() <= 20 && editGroupName.length() > 0) && (s.toString().length() <= 200)
+                );
             }
         });
     }
 
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.create_new_group_activity_app_bar_menu, menu);
-//        return true;
-//    }
-
-
     private void onConfirmButtonClick() {
-        if (Status.checkUnavailableAction(this, appBar)) return;
+        if (Status.checkInternet(this, appBar)) return;
 
         final String name = editGroupName.getText().toString();
         final String desc = editGroupDesc.getText().toString();
@@ -74,6 +78,14 @@ public class CreateNewGroupActivity extends AppCompatActivity {
         UserOptions.getCurrent().writeToShared(this);
 
         startActivity(new Intent(this, AdminActivity.class));
+        ActivityStack.getInstance().finishAll();
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ActivityStack.getInstance().remove(this);
     }
 
 }

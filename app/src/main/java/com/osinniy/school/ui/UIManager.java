@@ -24,9 +24,9 @@ public class UIManager {
     }
 
 
-    public SwipeRefreshLayout setSwipeRefresh(@IdRes int id) {
-        SwipeRefreshLayout swipeRefresh =  v.findViewById(id);
-        swipeRefresh.setRefreshing(true);
+    public SwipeRefreshLayout setSwipeRefresh(@IdRes int id, boolean mayRefreshNow) {
+        SwipeRefreshLayout swipeRefresh = v.findViewById(id);
+        swipeRefresh.setRefreshing(mayRefreshNow);
         swipeRefresh.setOnRefreshListener(() -> listener.onRefresh());
         return swipeRefresh;
     }

@@ -1,9 +1,11 @@
 package com.osinniy.school.obj.dz;
 
+import android.util.SparseArray;
+
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.osinniy.school.obj.Bindable;
+import com.osinniy.school.utils.Util;
 
 import java.util.Date;
 import java.util.Map;
@@ -11,29 +13,29 @@ import java.util.Objects;
 
 public class DZ implements Bindable {
 
-    private Map<Integer, String> homework;
+    private SparseArray<String> homework;
 
     private final Date creationDate;
     private Date editDate;
 
-    @Nullable
-    private final String id;
+    @NonNull
+    private String id;
     private final String uid;
     private boolean isChanged;
 
 
-    public DZ(Map<Integer, String> homework, @Nullable String id, String uid) {
+    public DZ(SparseArray<String> homework, String uid) {
         this.homework = homework;
         this.uid = uid;
-        this.id = id;
 
+        id = Util.generateID();
         creationDate = new Date();
         isChanged = false;
     }
 
 
-    DZ(Map<Integer, String> homework, Date creationDate, Date editDate,
-       @Nullable String id, String uid, boolean isChanged) {
+    DZ(SparseArray<String> homework, Date creationDate, Date editDate,
+       @NonNull String id, String uid, boolean isChanged) {
         this.homework = homework;
         this.creationDate = creationDate;
         this.editDate = editDate;
@@ -43,9 +45,8 @@ public class DZ implements Bindable {
     }
 
 
-    public Map<String, Object> update(@NonNull Map<Integer, String> newHomework) {
-        homework.clear();
-        homework.putAll(newHomework);
+    public Map<String, Object> update(@NonNull SparseArray<String> newHomework) {
+        homework = newHomework;
         editDate = new Date();
         isChanged = true;
         return DZMapper.createMap(this);
@@ -53,7 +54,7 @@ public class DZ implements Bindable {
 
 
     @Override
-    @Nullable
+    @NonNull
     public String getId() {
         return id;
     }
@@ -62,7 +63,7 @@ public class DZ implements Bindable {
         return uid;
     }
 
-    public Map<Integer, String> getHomework() {
+    public SparseArray<String> getHomework() {
         return homework;
     }
 

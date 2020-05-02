@@ -1,9 +1,20 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
         <item name="fontFamily">@font/googlesans</item>
     </style>
 
+    <style name="BlueTheme" parent="AppTheme">
+        <item name="colorPrimary">@color/blueThemeColorPrimary</item>
+        <item name="colorPrimaryDark">@color/blueThemeColorPrimaryDark</item>
+        <item name="colorAccent">@color/blueThemeColorAccent</item>
+        <item name="colorSecondaryVariant">@color/blueThemeColorAccentDark</item>
+        <item name="android:textColorPrimary">@color/blueThemePrimaryText</item>
+        <item name="android:textColorSecondary">@color/blueThemeSecondaryText</item>
+    </style>
 
     <style name="AppTheme.ItemTitle" parent="TextAppearance.MaterialComponents.Headline6">
         <item name="android:textSize">16sp</item>
@@ -11,6 +22,28 @@
 
     <style name="AppTheme.ItemText" parent="TextAppearance.MaterialComponents.Subtitle2">
         <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="MenuLabelsStyle">
+        <item name="android:background">@drawable/fab_label_bg</item>
+        <item name="android:textColor">@color/fab_labels_text_color</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="MenuButtonsStyle">
+        <item name="fab_size">mini</item>
+        <item name="fab_shadowColor">@color/fab_shadow_color</item>
+        <item name="fab_colorNormal">@color/fab_color_normal</item>
+        <item name="fab_colorPressed">@color/fab_color_pressed</item>
+        <item name="fab_colorRipple">@color/fab_color_ripple</item>
+    </style>
+
+    <style name="ProfileTitleTextStyle">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/profile_main_text_color</item>
     </style>
 
 </resources>

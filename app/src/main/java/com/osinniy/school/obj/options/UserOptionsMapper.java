@@ -20,7 +20,7 @@ public class UserOptionsMapper {
         Map<String, Object> map = new HashMap<>();
 
         map.put(USERNAME, options.getUsername());
-        map.put(PHOTO_URI, options.getPhotoUri());
+        map.put(PHOTO_URI, options.getPhotoUri() != null ? options.getPhotoUri().toString() : null);
         map.put(IS_ADMIN, options.isAdmin());
         map.put(GROUP_ID, options.getGroupId());
 

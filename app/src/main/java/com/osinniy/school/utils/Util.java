@@ -1,10 +1,13 @@
 package com.osinniy.school.utils;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.StringRes;
 
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
+import com.osinniy.school.BuildConfig;
 import com.osinniy.school.firebase.Factory;
 
 import java.util.Random;
@@ -16,7 +19,6 @@ public final class Util {
     }
 
 
-    @Deprecated
     public static String generateID() {
         char[] chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234567890"
                 .toCharArray();
@@ -40,6 +42,13 @@ public final class Util {
 
         if (Factory.getInstance().getGroupDao().checkCode(generated)) return generateGroupCode();
         else return generated;
+    }
+
+
+    public static void logException(String msg, Exception e) {
+        if (BuildConfig.DEBUG) Log.e("School Manager", msg, e);
+        FirebaseCrashlytics.getInstance().log(msg);
+        FirebaseCrashlytics.getInstance().recordException(e);
     }
 
 }

@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/navigation_dashboard"
         android:label="@string/nav_dashboard"
-        android:name="com.osinniy.school.ui.user.dashboard.DashboardFragment"
+        android:name="com.osinniy.school.ui.dashboard.DashboardFragment"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
@@ -20,6 +20,7 @@
     <fragment
         android:id="@+id/navigation_notifications"
         android:label="@string/nav_notifications"
-        android:name="com.osinniy.school.ui.user.notifications.NotificationsFragment"
+        android:name="com.osinniy.school.ui.notifications.NotificationsFragment"
         tools:layout="@layout/fragment_notifications" />
+
 </navigation>

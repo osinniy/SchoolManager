@@ -25,7 +25,7 @@ public class Factory {
     }
 
 
-    public FirestoreDao getFirebaseDao() {
+    public FirestoreDao getFirestoreDao() {
         if (dao == null) {
             synchronized (this) {
                 if (dao == null) dao = new FirestoreDao();

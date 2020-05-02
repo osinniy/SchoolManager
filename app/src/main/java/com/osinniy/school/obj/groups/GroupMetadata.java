@@ -3,6 +3,7 @@ package com.osinniy.school.obj.groups;
 import androidx.annotation.Nullable;
 
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.osinniy.school.firebase.Docs;
 
 import java.util.HashMap;
@@ -17,6 +18,7 @@ public class GroupMetadata {
         map.put(Docs.DESCRIPTION, desc);
         map.put(Docs.CREATION_DATE, Timestamp.now());
         map.put(Docs.NUM_OF_MEMBERS, 1);
+        map.put(Docs.ADMIN_ID, FirebaseAuth.getInstance().getUid());
 
         return map;
     }

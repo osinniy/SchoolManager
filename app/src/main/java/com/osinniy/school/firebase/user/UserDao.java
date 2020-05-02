@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.osinniy.school.firebase.Docs;
@@ -17,15 +18,15 @@ import com.osinniy.school.utils.Status;
 public class UserDao {
 
     private final FirebaseFirestore fs = FirebaseFirestore.getInstance();
-    private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     @NonNull
     private UserOptions currentOptions = initDefOptions();
 
 
     public void addUser() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         fs.collection(Docs.COL_USERS).document(user.getUid()).set(
-                UserOptionsMapper.createMap(initDefOptions())
+                UserOptionsMapper.createMap(currentOptions)
         );
     }
 
@@ -42,17 +43,18 @@ public class UserDao {
 
 
     public void reloadOptions() {
-        downloadOptions(null);
+        downloadOptions(null, null);
     }
 
 
-    public void reloadOptions(Runnable extraCode) {
-        downloadOptions(extraCode);
+    public void reloadOptions(Runnable successCode, Runnable failureCode) {
+        downloadOptions(successCode, failureCode);
     }
 
 
     @Nullable
     public UserOptions updateOptions(@Nullable UserOptions newOptions) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         DocumentReference userDoc = fs.collection(Docs.COL_USERS).document(user.getUid());
         if (newOptions == null) userDoc.delete();
         else userDoc.set(UserOptionsMapper.createMap(newOptions));
@@ -61,18 +63,22 @@ public class UserDao {
     }
 
 
-    private void downloadOptions(@Nullable Runnable extraCode) {
+    private void downloadOptions(@Nullable Runnable successCode, @Nullable Runnable failureCode) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        Status.isOptionsDownloaded = false;
         fs.collection(Docs.COL_USERS)
                 .document(user.getUid())
                 .get()
                 .addOnSuccessListener(snapshot -> {
                     currentOptions = UserOptionsMapper.restoreInstance(snapshot);
                     Status.isOptionsDownloaded = true;
-                    if (extraCode != null) extraCode.run();
+                    if (successCode != null) successCode.run();
                 })
                 .addOnFailureListener(e -> {
-                    Log.w(Docs.TAG_FIRESTORE_READ, "Failed to read user options: ", e);
-                    Status.isOptionsDownloaded = false;
+                    Log.w(Docs.TAG_FIRESTORE_READ, "Cannot download user options: ", e);
+                    FirebaseCrashlytics.getInstance().log("Cannot download user options");
+                    FirebaseCrashlytics.getInstance().recordException(e);
+                    if (failureCode != null) failureCode.run();
                 });
     }
 
@@ -82,7 +88,7 @@ public class UserDao {
         return new UserOptions().edit()
                 .setUsername("User")
                 .setPhotoUri(null)
-                .setGroupId(null)
+                .setGroupId("null")
                 .setAdmin(false)
                 .commit();
     }
