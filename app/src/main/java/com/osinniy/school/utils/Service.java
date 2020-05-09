@@ -1,5 +1,5 @@
 package com.osinniy.school.utils;
 
-public class Service {
+public final class Service {
 
 }

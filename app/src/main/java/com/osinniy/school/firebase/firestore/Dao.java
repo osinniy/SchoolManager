@@ -2,6 +2,7 @@ package com.osinniy.school.firebase.firestore;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.Task;
 import com.osinniy.school.obj.dz.DZ;
 import com.osinniy.school.obj.imp.Important;
 
@@ -12,13 +13,13 @@ public interface Dao {
 
     void load(WeakReference<GetItemListener> listener);
 
-    void addDZ(@NonNull DZ dz);
+    Task<Void> addDZ(@NonNull DZ dz);
 
-    void deleteDZ(@NonNull DZ dz);
+    Task<Void> deleteDZ(@NonNull DZ dz);
 
-    void addImportant(@NonNull Important imp);
+    Task<Void> addImportant(@NonNull Important imp);
 
-    void deleteImportant(@NonNull Important imp);
+    Task<Void> deleteImportant(@NonNull Important imp);
 
     interface GetItemListener {
 

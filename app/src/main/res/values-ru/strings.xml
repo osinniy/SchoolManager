@@ -1,2 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+
+    <string name="text_join_group">Для входа в группу введите код</string>
+    <string name="text_group_code">Код группы</string>
+    <string name="text_butt_join">ВОЙТИ</string>
+    <string name="text_or">или</string>
+    <string name="text_create_new_group">СОЗДАТЬ СВОЮ ГРУППУ</string>
+    <string name="text_coming_soon">Скоро будет</string>
+    <string name="text_group_name">Имя группы (обязательно)</string>
+    <string name="text_description">Описание (опционально)</string>
+    <string name="text_info">Информация</string>
+    <string name="text_profile_group">Группа:</string>
+    <string name="text_profile_user">ID пользователя:</string>
+    <string name="text_new_imp_first_msg">Добавьте новый блок с важной информацией заполнив поля ниже:</string>
+    <string name="text_timetable_second_msg">Чтобы сохранить данные, нажмите на кнопку в правом верхнем углу</string>
+    <string name="text_new_dz_first_msg">Эта страница позволяет вам публиковать домашнее задание пользователям. Сначала вам нужно выбрать дату</string>
+    <string name="text_new_dz_second_msg">Вы можете добавить блок с домашним заданием на определенную дату. Пользователи увидят этот блок на главной странице  за день до этой даты</string>
+    <string name="text_title">Заголовок (обязательно)</string>
+    <string name="text_message">Сообщение</string>
+    <string name="text_homework_for_tomorrow">Домашнее задание на завтра</string>
+    <string name="text_monday">Понедельник</string>
+    <string name="text_wednesday">Среда</string>
+    <string name="text_thursday">Четверг</string>
+    <string name="text_friday">Пятница</string>
+    <string name="text_licenses">Лицензии</string>
+    <string name="text_edited">Изменено</string>
+    <string name="text_timetable_first_msg">На этой странице вы можете редактировать расписание, которое используется для добавления домашнего задания</string>
+    <string name="text_tuesday">Вторник</string>
+    <string name="text_select">Выбрать</string>
+    <string name="text_new_imp_second_msg">Заметьте, что пользователи группы увидят только последние три блока на главной странице</string>
+
+    <string name="title_done">ГОТОВО</string>
+
+    <string name="nav_notifications">Уведомления</string>
+    <string name="nav_dashboard">Главная</string>
+    <string name="nav_history">История</string>
+
+    <string name="dialog_butt_delete">Удалить</string>
+    <string name="dialog_butt_cancel">Отмена</string>
+    <string name="dialog_title_leave_group">Вы действительно хотите покинуть группу?</string>
+    <string name="dialog_msg_leave_group">Ваши данные будут сохранены. Вы сможете войти в группу снова используя этот код:</string>
+    <string name="dialog_butt_leave">Покинуть</string>
+    <string name="dialog_title_sign_out">Вы действительно хотите выйти с аккаунта?</string>
+    <string name="dialog_text_sign_out">Ваши данные будут сохранены</string>
+    <string name="dialog_title_delete_account">Вы действительно хотите удалить свой аккаунт?</string>
+    <string name="dialog_msg_delete_account">Ваш аккаунт и все ваши данные будут удалены навсегда. Вы не сможете отменить это действие</string>
+    <string name="dialog_msg_delete_account_admin">Ваш аккаунт и все ваши данные будут удалены навсегда. Данные вашей группы также будут удалены. Вы не сможете отменить это действие</string>
+    <string name="dialog_title_delete_item">Вы действительно хотите удалить этот элемент?</string>
+    <string name="dialog_title_delete_group_data">Вы действительно хотите удалить все данные группы?</string>
+    <string name="dialog_msg_delete_group_data">Из группы будут удалены все пользователи. Вы не сможете отменить это действие</string>
+    <string name="dialog_butt_sign_out">Выйти</string>
+    <string name="dialog_select_date">Выберите дату</string>
+    <string name="dialog_msg_delete_item">Элемент невозможно будет восстановить</string>
+
+    <string name="app_bar_groups">Группы</string>
+    <string name="app_bar_create_group">Создать группу</string>
+    <string name="app_bar_new_dz">Домашнее задание</string>
+    <string name="app_bar_new_imp">Важное</string>
+    <string name="app_bar_timetable">Расписание</string>
+
+    <string name="fab_title_dz">Домашнее задание</string>
+    <string name="fab_title_important">Важное</string>
+    <string name="fab_title_timetable">Расписание</string>
+
+    <string name="desc_edit">редактировать</string>
+    <string name="desc_delete_group">удалить группу</string>
+    <string name="desc_sign_out">выйти с аккаунта</string>
+    <string name="desc_delete_account">удалить аккаунт</string>
+    <string name="desc_profile_photo">фото профиля</string>
+    <string name="desc_dark_mode">темная тема</string>
+    <string name="desc_add_subj">добавить предмет</string>
+    <string name="desc_profile">профиль</string>
+    <string name="desc_leave">выйти</string>
+    <string name="desc_group_icon">иконка группы</string>
+
+    <string name="snackbar_deleted">Удалено</string>
+    <string name="snackbar_offline_mode">Оффлайн режим</string>
+    <string name="snackbar_old_data">Показаны устаревшие данные</string>
+    <string name="toast_no_internet_connection">Нет интернет соединения</string>
+    <string name="snackbar_timetable_saved">Расписание сохранено</string>
+    <string name="toast_sign_in_cancelled">Аутентификация отменена</string>
+    <string name="toast_google_error">Ошибка Google</string>
+    <string name="toast_email_error">Ошибка</string>
+    <string name="toast_developer_error">Ошибка разработчиков, мы уже работаем над этим</string>
+    <string name="toast_unknown_error">Неизвестная ошибка</string>
+    <string name="toast_sth_went_wrong_restart_app">Что-то пошло не так, пожалуйста перезапустите приложение или попробуйте позже</string>
+    <string name="toast_account_deleted">Ваш аккаунт успешно удален</string>
+    <string name="error_group_not_found">Группа не найдена или создана позже чем вы открыли приложение</string>
+    <string name="toast_facebook_error">Ошибка Facebook</string>
+    <string name="toast_sth_went_wrong_re_authenticate">Что-то пошло не так, пожалуйста аутентифицируйтесь снова или попробуйте позже</string>
+    <string name="snackbar_should_add_timetable">Сначала добавьте расписание за эту дату</string>
+    <string name="snackbar_invalid_date">Некорректная дата</string>
+
+</resources>

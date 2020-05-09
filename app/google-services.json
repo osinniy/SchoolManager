@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "920635885549-407uc12j47sncm0832vu8bp20nvkfaje.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.osinniy.school",
+            "certificate_hash": "ae2b6487ac6b0e4ae6eb8bc42b87baa4456dc3bc"
+          }
+        },
+        {
           "client_id": "920635885549-o93jg71tja1k02pi5qvmt9sqicbq3jds.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -38,6 +46,13 @@
             {
               "client_id": "920635885549-vlaarohe0ne2ssb5ijvcd981n834jab4.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "920635885549-k3jv36tp510671hhbbkqpghvf1bb4qo3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.osinniy.school2"
+              }
             }
           ]
         }

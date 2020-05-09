@@ -2,6 +2,7 @@ package com.osinniy.school.firebase.groups;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.collection.ArrayMap;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -17,8 +18,14 @@ import com.osinniy.school.utils.listeners.OnDataLoadListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static com.osinniy.school.firebase.Docs.NUM_OF_MEMBERS;
+import static com.osinniy.school.obj.timetable.Timetable.FRIDAY;
+import static com.osinniy.school.obj.timetable.Timetable.MONDAY;
+import static com.osinniy.school.obj.timetable.Timetable.THURSDAY;
+import static com.osinniy.school.obj.timetable.Timetable.TUESDAY;
+import static com.osinniy.school.obj.timetable.Timetable.WEDNESDAY;
 
 @SuppressWarnings("unchecked")
 public class GroupDao {
@@ -50,7 +57,13 @@ public class GroupDao {
 
         thisGroup.document(Docs.DOC_METADATA).set(metadata);
 
-        thisGroup.document(Docs.DOC_TIMETABLE).set(Collections.emptyMap());
+        Map<String, Object> timetable = new ArrayMap<>(5);
+        timetable.put(MONDAY, Collections.emptyList());
+        timetable.put(TUESDAY, Collections.emptyList());
+        timetable.put(WEDNESDAY, Collections.emptyList());
+        timetable.put(THURSDAY, Collections.emptyList());
+        timetable.put(FRIDAY, Collections.emptyList());
+        thisGroup.document(Docs.DOC_TIMETABLE).set(timetable);
 
         UserOptions.getCurrent().edit()
                 .setGroupId(groupId)
@@ -77,40 +90,39 @@ public class GroupDao {
                 .get()
                 .addOnSuccessListener(snapshot -> {
                     ArrayList<String> uids = getUids(snapshot);
-
                     final String uid = FirebaseAuth.getInstance().getUid();
+                    AtomicBoolean newUser = new AtomicBoolean(false);
+
                     if (!uids.contains(uid)) {
+                        newUser.set(true);
                         uids.add(uid);
                         fs.collection(groupId).document(Docs.DOC_GROUP_USERS).set(
                                 Collections.singletonMap(Docs.USERS_ARRAY, uids)
                         );
                     }
 
-                    fs.collection(groupId).document(Docs.DOC_METADATA).get()
+                    fs.collection(groupId)
+                            .document(Docs.DOC_METADATA)
+                            .get()
                             .addOnSuccessListener(metadataSnapshot -> {
-                                if (snapshot.exists()) {
-//                                    Map<String, Object> metadata = metadataSnapshot.getData();
-                                    if (snapshot.contains(NUM_OF_MEMBERS)) {
-                                        long numOfMembers = snapshot.getLong(NUM_OF_MEMBERS);
-//                                        metadata.put(NUM_OF_MEMBERS, ++numOfMembers);
-//                                        FIXME shouldn't increment number of members every time
+                                if (metadataSnapshot.contains(NUM_OF_MEMBERS)) {
+                                    long numOfMembers = metadataSnapshot.getLong(NUM_OF_MEMBERS);
+                                    if (newUser.get())
                                         fs.collection(groupId).document(Docs.DOC_METADATA)
                                                 .update(NUM_OF_MEMBERS, ++numOfMembers);
 
-                                        optionsEditor.setAdmin(
-                                                uid.equals(metadataSnapshot.getString(Docs.ADMIN_ID))
-                                        )
-                                        .setGroupId(groupId).commit();
+                                    optionsEditor.setAdmin(
+                                            uid.equals(metadataSnapshot.getString(Docs.ADMIN_ID))
+                                    )
+                                    .setGroupId(groupId).commit();
 
-                                        Factory.getInstance().getUserDao().updateOptions(UserOptions.getCurrent());
+                                    Factory.getInstance().getUserDao().updateOptions(UserOptions.getCurrent());
 
-                                        if (successCode != null) successCode.run();
-                                    }
-//                                    GroupManager.setCurrentGroup(new Group(code, uids, metadata));
+                                    if (successCode != null) successCode.run();
                                 }
-                            });
-                });
-
+                            })
+                            .addOnFailureListener(e -> Util.logException("Metadata load failed", e));
+                    });
         return true;
     }
 
@@ -170,11 +182,15 @@ public class GroupDao {
         fs.collection(UserOptions.getCurrent().getGroupId())
                 .document(Docs.DOC_METADATA)
                 .get()
-                .addOnSuccessListener(snapshot -> listener.onDataLoaded(snapshot, null))
-                .addOnFailureListener(e -> listener.onDataLoaded(null, e));
+                .addOnSuccessListener(snapshot -> listener.onLoadFinished(snapshot, null))
+                .addOnFailureListener(e -> {
+                    Util.logException("Metadata load failed", e);
+                    listener.onLoadFinished(null, e);
+                });
     }
 
 
+    // TODO: 07.05.2020 nested collections are not deleted
     public void deleteAllGroupData() {
         String groupId = UserOptions.getCurrent().getGroupId();
         if (groupId.equals("null")) return;

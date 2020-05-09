@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/new_imp_butt_ok"
-        android:title="@string/title_ok"
-        android:icon="@drawable/ic_done"
+        android:id="@+id/menu_butt_ok"
+        android:title="@string/title_done"
+        android:icon="@drawable/ic_done_disabled_28dp"
         android:enabled="false"
         app:showAsAction="ifRoom" />
 

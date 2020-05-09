@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.osinniy.school.R;
@@ -30,23 +31,24 @@ public final class Status {
     }
 
 
-    public static boolean checkInternet(Context c, View v) {
+    public static boolean checkInternet(Context c) {
         if (!Status.isOnline(c)) {
-            Snackbar.make(v, R.string.toast_no_internet_connection, Snackbar.LENGTH_LONG).show();
+            Toast.makeText(c, R.string.toast_no_internet_connection, Toast.LENGTH_LONG).show();
             return true;
         }
         return false;
     }
 
 
-    public static void switchMode(Context c, View v) {
+    public static boolean switchMode(Context c, View v) {
         if (!Status.isOnline(c))
             Snackbar.make(v, R.string.snackbar_offline_mode, Snackbar.LENGTH_SHORT).show();
+        return isOnline;
     }
 
 
     /**
-     * @deprecated call {@code isOnline()} takes about 50 ms, use {@code isOnline(Context c)} instead
+     * @deprecated call {@code isOnline()} takes too long, use {@code isOnline(Context c)} instead
      */
     @Deprecated
     public static boolean isOnline() {

@@ -18,18 +18,20 @@ public final class Docs {
     public static final String REF_GROUP_CODES = "/Groups/GroupCodes";
 
 //    info about user
-    public static final String UID      = "uid";
+    public static final String UID = "uid";
 
 //    info about dz obj
-    public static final String HOMEWORK = "homework";
+    public static final String HOMEWORK    = "homework";
+    public static final String TARGET_DATE = "target_date";
 
 //    info about bindable classes
     public static final String IS_CHANGED = "changed";
 
 //    group metadata
-    public static final String CODE = "code";
-    public static final String NUM_OF_MEMBERS = "number_of_members";
-    public static final String ADMIN_ID = "admin_id";
+    public static final String CODE            = "code";
+    public static final String NUM_OF_MEMBERS  = "number_of_members";
+    public static final String ADMIN_ID        = "admin_id";
+    public static final String TIMETABLE_ADDED = "timetable_added";
 
 //    log tags
     public static final String TAG_FIRESTORE_READ  = "Firestore Read";
@@ -43,8 +45,8 @@ public final class Docs {
 //    other
     public static final String NAME          = "name";
     public static final String TEXT          = "text";
-    public static final String CREATION_DATE = "creationDate";
-    public static final String EDIT_DATE     = "editDate";
+    public static final String CREATION_DATE = "creation_date";
+    public static final String EDIT_DATE     = "edit_date";
     public static final String ID            = "id";
 
 }

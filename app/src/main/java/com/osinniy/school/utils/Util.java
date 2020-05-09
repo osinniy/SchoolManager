@@ -32,7 +32,7 @@ public final class Util {
 
 
     public static String generateGroupCode() {
-        char[] chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234567890"
+        char[] chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789123456789"
                 .toCharArray();
         StringBuilder builder = new StringBuilder(6);
         Random random = new Random();
@@ -47,8 +47,10 @@ public final class Util {
 
     public static void logException(String msg, Exception e) {
         if (BuildConfig.DEBUG) Log.e("School Manager", msg, e);
-        FirebaseCrashlytics.getInstance().log(msg);
-        FirebaseCrashlytics.getInstance().recordException(e);
+        else {
+            FirebaseCrashlytics.getInstance().log(msg);
+            FirebaseCrashlytics.getInstance().recordException(e);
+        }
     }
 
 }

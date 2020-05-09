@@ -1,51 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_important_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:strokeWidth="1dp"
-    app:strokeColor="@color/stroke_color"
-    app:cardElevation="0dp">
+    android:paddingHorizontal="@dimen/card_padding"
+    android:paddingTop="@dimen/card_padding">
 
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_item_important"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingStart="16dp"
-        android:paddingEnd="8dp"
-        android:paddingTop="16dp"
-        android:paddingBottom="8dp">
+        app:strokeWidth="1dp"
+        app:strokeColor="@color/stroke_color"
+        app:cardElevation="0dp"
+        app:cardCornerRadius="@dimen/card_corner_radius">
 
-        <TextView
-            android:id="@+id/item_important_title"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?textAppearanceHeadline6"
-            android:textColor="@color/colorPrimaryDark"
-            android:textStyle="bold"
-            tools:text="Very important info!!!"/>
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="8dp">
 
-        <TextView
-            android:id="@+id/item_important_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textAppearance="?textAppearanceBody2"
-            android:textColor="@color/colorPrimary"
-            tools:text="Secondary text и бла бла бла юлв вуч мми ам ампам амамам амам амам"/>
-        
-        <TextView
-            android:id="@+id/item_important_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginTop="8dp"
-            android:textAppearance="?textAppearanceOverline"
-            android:textColor="?android:textColorSecondary"
-            tools:text="30.04 16:42"/>
+            <TextView
+                android:id="@+id/item_important_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?textAppearanceHeadline6"
+                android:textStyle="bold"
+                tools:text="Very important info!!!"/>
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/item_important_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textAppearance="?textAppearanceBody2"
+                android:textColor="?android:textColorSecondary"
+                tools:text="ewjfcshdfbchdshhfdsvc"/>
 
-</com.google.android.material.card.MaterialCardView>
+            <TextView
+                android:id="@+id/item_important_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="8dp"
+                android:textAppearance="?textAppearanceCaption"
+                android:textColor="?android:textColorSecondary"
+                tools:text="Edited  30.04 16:42"/>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

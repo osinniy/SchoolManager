@@ -4,60 +4,90 @@
     <string name="facebook_application_id" translatable="false">627722124452257</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fb627722124452257</string>
 
-    <string name="text_join_group">To join group enter it code here</string>
-    <string name="text_group_code">Code</string>
+    <string name="pref_user_options" translatable="false">com.osinniy.school.PREFERENCES_USER_OPTIONS</string>
+    <string name="pref_main" translatable="false">com.osinniy.school.PREFERENCES_MAIN</string>
+
+    <string name="text_join_group">To join group enter code</string>
+    <string name="text_group_code">Group code</string>
     <string name="text_butt_join">JOIN</string>
     <string name="text_or">or</string>
     <string name="text_create_new_group">CREATE NEW GROUP</string>
     <string name="text_coming_soon">Coming soon</string>
-    <string name="text_create_group">Create group</string>
     <string name="text_group_name">Group name (required)</string>
     <string name="text_description">Description (optional)</string>
-    <string name="text_card_edited">edited</string>
-    <string name="text_username">Username</string>
+    <string name="text_edited">Edited</string>
+    <string name="text_username" translatable="false">Username</string>
     <string name="text_info">Info</string>
     <string name="text_profile_group">Group:</string>
     <string name="text_profile_user">User:</string>
+    <string name="text_new_imp_first_msg">Add a new block with important info by filling in the fields below:</string>
+    <string name="text_new_imp_second_msg">Note that the group members will see only the last three blocks on the main page</string>
+    <string name="text_timetable_first_msg">On this page you can edit timetable, which is used to add homework</string>
+    <string name="text_timetable_second_msg">To save data, click on the button in the top right corner</string>
+    <string name="text_new_dz_first_msg">This page allows you post homework to users. You need select a date first</string>
+    <string name="text_new_dz_second_msg">You can add a homework block on a specific date. Users can see this block on the main page one day before this date</string>
+    <string name="text_title">Title (required)</string>
+    <string name="text_message">Message</string>
+    <string name="text_homework_for_tomorrow">Homework for tomorrow</string>
+    <string name="text_monday">Monday</string>
+    <string name="text_tuesday">Tuesday</string>
+    <string name="text_wednesday">Wednesday</string>
+    <string name="text_thursday">Thursday</string>
+    <string name="text_friday">Friday</string>
+    <string name="text_select">Select</string>
+    <string name="text_licenses">Licenses</string>
 
-    <string name="title_create">CREATE</string>
+    <string name="title_done">DONE</string>
 
     <string name="nav_dashboard">Dashboard</string>
     <string name="nav_history">History</string>
     <string name="nav_notifications">Notifications</string>
 
     <string name="dialog_title_delete_group_data">Do you really want to delete all group data?</string>
-    <string name="dialog_msg_delete_group_data">All members are also removed. You cannot undo this action</string>
+    <string name="dialog_msg_delete_group_data">All members are also removed from group. You cannot undo this action</string>
     <string name="dialog_butt_delete">Delete</string>
     <string name="dialog_butt_cancel">Cancel</string>
     <string name="dialog_title_leave_group">Do you really want to leave the group?</string>
-    <string name="dialog_msg_leave_group">Your data will be saved. You can enter the group later using this code:  </string>
+    <string name="dialog_msg_leave_group">Your data will be saved. You can join this group again using this code:  </string>
     <string name="dialog_butt_leave">Leave</string>
     <string name="dialog_title_sign_out">Do you really want to sign out?</string>
+    <string name="dialog_text_sign_out">Your data will be saved</string>
     <string name="dialog_butt_sign_out">Sign out</string>
     <string name="dialog_title_delete_account">Do you really want to delete your account?</string>
     <string name="dialog_msg_delete_account">Your account and all your data will be deleted forever. You cannot undo this action</string>
     <string name="dialog_msg_delete_account_admin">Your account and all your data will be deleted forever. Your group data will also be deleted. You cannot undo this action</string>
+    <string name="dialog_select_date">Select a date</string>
+    <string name="dialog_title_delete_item">Do you really want to delete this item?</string>
+    <string name="dialog_msg_delete_item">Item cannot be restored</string>
 
+    <string name="app_bar_groups">Join group</string>
     <string name="app_bar_create_group">Create group</string>
-    <string name="app_bar_groups">Groups</string>
+    <string name="app_bar_new_dz">New homework</string>
+    <string name="app_bar_new_imp">New important</string>
+    <string name="app_bar_timetable">Edit timetable</string>
 
-    <string name="fab_title_new_dz">Homework</string>
-    <string name="fab_title_new_important">Important</string>
+    <string name="fab_title_dz">Homework</string>
+    <string name="fab_title_important">Important</string>
+    <string name="fab_title_timetable">Timetable</string>
 
     <string name="desc_edit">edit</string>
-    <string name="desc_done">done</string>
     <string name="desc_leave">leave</string>
     <string name="desc_delete_group">delete group</string>
     <string name="desc_sign_out">sign out</string>
     <string name="desc_delete_account">delete account</string>
     <string name="desc_profile_photo">profile photo</string>
+    <string name="desc_group_icon">group icon</string>
+    <string name="desc_dark_mode">dark mode switch</string>
+    <string name="desc_add_subj">add subject</string>
+    <string name="desc_profile">profile</string>
 
-    <string name="settings_dark_mode">Dark mode</string>
-
-    <string name="error_group_not_found">Group not found</string>
+    <string name="snackbar_deleted">Deleted</string>
     <string name="snackbar_offline_mode">Offline mode</string>
-    <string name="toast_sign_in_cancelled">Sign-in canceled</string>
+    <string name="snackbar_old_data">Showing outdated data</string>
     <string name="toast_no_internet_connection">No internet connection</string>
+    <string name="snackbar_timetable_saved">Timetable saved</string>
+    <string name="error_group_not_found">Group not found or created later than you opened app</string>
+    <string name="toast_sign_in_cancelled">Sign-in canceled</string>
     <string name="toast_google_error">Google error</string>
     <string name="toast_facebook_error">Facebook error</string>
     <string name="toast_email_error">Sign-in error</string>
@@ -66,9 +96,7 @@
     <string name="toast_sth_went_wrong_re_authenticate">Something went wrong, please re-authenticate or try later</string>
     <string name="toast_sth_went_wrong_restart_app">Something went wrong, please restart app or try later</string>
     <string name="toast_account_deleted">Your account was successfully deleted</string>
-
-    <string name="pref_user_options">com.osinniy.school.PREFERENCES_USER_OPTIONS</string>
-    <string name="pref_settings">com.osinniy.school.SETTINGS</string>
-    <string name="pref_main">com.osinniy.school.PREFERENCES_MAIN</string>
+    <string name="snackbar_should_add_timetable">You should add timetable for this date first</string>
+    <string name="snackbar_invalid_date">Invalid date</string>
 
 </resources>

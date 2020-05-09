@@ -8,7 +8,7 @@
     <include layout="@layout/fragment_dashboard" />
 
     <com.github.clans.fab.FloatingActionMenu
-        android:id="@+id/dashboard_fam"
+        android:id="@+id/dash_fam"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
@@ -20,19 +20,27 @@
         app:menu_labels_style="@style/MenuLabelsStyle">
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/dashboard_fab_add_important"
+            android:id="@+id/dash_fab_add_important"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_important"
-            app:fab_label="@string/fab_title_new_important"
+            app:fab_label="@string/fab_title_important"
             style="@style/MenuButtonsStyle"/>
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/dashboard_fab_add_dz"
+            android:id="@+id/dash_fab_add_dz"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_pencil"
-            app:fab_label="@string/fab_title_new_dz"
+            app:fab_label="@string/fab_title_dz"
+            style="@style/MenuButtonsStyle"/>
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/dash_fab_timetable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_timetable"
+            app:fab_label="@string/fab_title_timetable"
             style="@style/MenuButtonsStyle"/>
 
     </com.github.clans.fab.FloatingActionMenu>

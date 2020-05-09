@@ -2,7 +2,7 @@ package com.osinniy.school.firebase.firestore;
 
 import androidx.annotation.NonNull;
 
-import com.google.firebase.Timestamp;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -13,6 +13,7 @@ import com.osinniy.school.obj.imp.ImpMapper;
 import com.osinniy.school.obj.imp.Important;
 import com.osinniy.school.obj.options.UserOptions;
 import com.osinniy.school.utils.Schedulers;
+import com.osinniy.school.utils.Util;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -28,9 +29,9 @@ public class FirestoreDao implements Dao {
 
     @Override
     public void load(WeakReference<GetItemListener> listenerRef) {
-        getImportantQuery().get()
+        getDZQuery().get()
                 .addOnSuccessListener(Schedulers.getIo(), snapshots -> {
-                    List<DZ> dzList = parseDZ(snapshots.getDocuments());
+                    List<DZ> dzList = parseDZs(snapshots.getDocuments());
                     GetItemListener listener = listenerRef.get();
                     if (listener != null) listener.onDZLoaded(dzList);
                 })
@@ -41,9 +42,9 @@ public class FirestoreDao implements Dao {
                     isExceptionHandled = true;
                 });
 
-        getDZQuery().get()
+        getImportantQuery().get()
                 .addOnSuccessListener(Schedulers.getIo(), snapshots -> {
-                    List<Important> impList = parseImportant(snapshots.getDocuments());
+                    List<Important> impList = parseImportants(snapshots.getDocuments());
                     GetItemListener listener = listenerRef.get();
                     if (listener != null) listener.onImportantLoaded(impList);
                 })
@@ -56,7 +57,7 @@ public class FirestoreDao implements Dao {
     }
 
 
-    private List<DZ> parseDZ(List<DocumentSnapshot> documents) {
+    private List<DZ> parseDZs(List<DocumentSnapshot> documents) {
         List<DZ> dzList = new ArrayList<>(documents.size());
         for (DocumentSnapshot doc : documents)
             dzList.add(DZMapper.restoreInstance(doc));
@@ -64,7 +65,7 @@ public class FirestoreDao implements Dao {
     }
 
 
-    private List<Important> parseImportant(List<DocumentSnapshot> documents) {
+    private List<Important> parseImportants(List<DocumentSnapshot> documents) {
         List<Important> impList = new ArrayList<>(documents.size());
         for (DocumentSnapshot doc : documents)
             impList.add(ImpMapper.restoreInstance(doc));
@@ -75,16 +76,15 @@ public class FirestoreDao implements Dao {
     private Query getImportantQuery() {
         return fs.collection(UserOptions.getCurrent().getGroupId())
                 .document(Docs.DOC_DATA)
-                .collection(Docs.COL_IMPORTANT)
-                .whereGreaterThan(Docs.CREATION_DATE, new Timestamp(getWeekAgoDate()));
+                .collection(Docs.COL_IMPORTANT);
+//                .whereGreaterThan(Docs.CREATION_DATE, new Timestamp(getWeekAgoDate()));
     }
 
 
     private Query getDZQuery() {
         return fs.collection(UserOptions.getCurrent().getGroupId())
                 .document(Docs.DOC_DATA)
-                .collection(Docs.COL_DZ)
-                .whereGreaterThan(Docs.CREATION_DATE, new Timestamp(getWeekAgoDate()));
+                .collection(Docs.COL_DZ);
     }
 
 
@@ -95,34 +95,42 @@ public class FirestoreDao implements Dao {
 
 
     @Override
-    public void addDZ(@NonNull DZ dz) {
+    public Task<Void> addDZ(@NonNull DZ dz) {
         String groupId = UserOptions.getCurrent().getGroupId();
-        fs.collection(groupId).document(Docs.DOC_DATA).collection(Docs.COL_DZ)
-                .document(dz.getId()).set(DZMapper.createMap(dz));
+        return fs.collection(groupId).document(Docs.DOC_DATA).collection(Docs.COL_DZ)
+                .document(dz.getId()).set(DZMapper.createMap(dz)).addOnFailureListener(e -> {
+                    Util.logException("Failed to add new 'DZ' obj", e);
+                });
     }
 
 
     @Override
-    public void deleteDZ(@NonNull DZ dz) {
+    public Task<Void> deleteDZ(@NonNull DZ dz) {
         String groupId = UserOptions.getCurrent().getGroupId();
-        fs.collection(groupId).document(Docs.DOC_DATA).collection(Docs.COL_DZ)
-                .document(dz.getId()).delete();
+        return fs.collection(groupId).document(Docs.DOC_DATA).collection(Docs.COL_DZ)
+                .document(dz.getId()).delete().addOnFailureListener(e -> {
+                    Util.logException("Homework deletion failed", e);
+                });
     }
 
 
     @Override
-    public void addImportant(@NonNull Important imp) {
+    public Task<Void> addImportant(@NonNull Important imp) {
         String groupId = UserOptions.getCurrent().getGroupId();
-        fs.collection(groupId).document(Docs.DOC_DATA).collection(Docs.COL_IMPORTANT)
-                .document(imp.getId()).set(ImpMapper.createMap(imp));
+        return fs.collection(groupId).document(Docs.DOC_DATA).collection(Docs.COL_IMPORTANT)
+                .document(imp.getId()).set(ImpMapper.createMap(imp)).addOnFailureListener(e -> {
+                    Util.logException("Failed to add new 'Important' obj", e);
+                });
     }
 
 
     @Override
-    public void deleteImportant(@NonNull Important imp) {
+    public Task<Void> deleteImportant(@NonNull Important imp) {
         String groupId = UserOptions.getCurrent().getGroupId();
-        fs.collection(groupId).document(Docs.DOC_DATA).collection(Docs.COL_IMPORTANT)
-                .document(imp.getId()).delete();
+        return fs.collection(groupId).document(Docs.DOC_DATA).collection(Docs.COL_IMPORTANT)
+                .document(imp.getId()).delete().addOnFailureListener(e -> {
+                    Util.logException("Important deletion failed", e);
+                });
     }
 
 }

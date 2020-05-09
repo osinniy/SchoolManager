@@ -23,8 +23,7 @@ import com.osinniy.school.R;
 import com.osinniy.school.firebase.Factory;
 import com.osinniy.school.firebase.user.UserDao;
 import com.osinniy.school.obj.options.UserOptions;
-import com.osinniy.school.ui.admin.AdminActivity;
-import com.osinniy.school.ui.user.MainActivity;
+import com.osinniy.school.ui.MainActivity;
 import com.osinniy.school.utils.Schedulers;
 import com.osinniy.school.utils.Util;
 
@@ -51,6 +50,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         Schedulers.getHandler().post(exitRunnable);
+        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(!BuildConfig.DEBUG);
     }
 
 
@@ -65,7 +65,7 @@ public class SplashActivity extends AppCompatActivity {
                 AuthUI.getInstance().createSignInIntentBuilder()
                         .setAvailableProviders(providers)
                         .setTheme(R.style.AppTheme)
-                        .setLogo(R.mipmap.ic_main)
+                        .setLogo(R.drawable.app_icon_foreground_big)
                         .setIsSmartLockEnabled(!BuildConfig.DEBUG, true)
                         .build(),
                 RC_SIGN_IN
@@ -169,13 +169,10 @@ public class SplashActivity extends AppCompatActivity {
 
 
     public void startNextActivity(UserOptions options) {
-        if (!options.getGroupId().equals("null")) {
-            if (options.isAdmin())
-                startActivity(new Intent(this, AdminActivity.class));
-            else
-                startActivity(new Intent(this, MainActivity.class));
-        }
-        else startActivity(new Intent(this, GroupsActivity.class));
+        if (!options.getGroupId().equals("null"))
+            startActivity(new Intent(this, MainActivity.class));
+        else
+            startActivity(new Intent(this, GroupsActivity.class));
 
         finish();
     }

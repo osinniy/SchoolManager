@@ -1,6 +1,1265 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- FIXME 06.05.2020: fix etot pizdez blyat-->
+
 <androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/timetable_container"
+    tools:context=".ui.admin.TimetableActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/timetable_app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/timetable_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="noScroll"
+            app:title="@string/app_bar_timetable"
+            app:titleTextColor="@color/colorOnAppBar"
+            app:menu="@menu/done_app_bar_menu"
+            app:navigationIcon="@drawable/ic_arrow_back"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?actionBarSize">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="ContentDescription">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/timetable_left_guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.05"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/timetable_right_guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.95"/>
+
+            <TextView
+                android:id="@+id/timetable_first_msg"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/text_timetable_first_msg"
+                android:textSize="16sp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"/>
+
+            <TextView
+                android:id="@+id/timetable_text_monday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/timetable_margin_day_edit_top"
+                android:layout_marginStart="@dimen/timetable_day_start_margin"
+                android:text="@string/text_monday"
+                app:layout_constraintTop_toBottomOf="@id/timetable_first_msg"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_monday_1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                android:layout_marginTop="@dimen/timetable_margin_day_edit_bottom"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toStartOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_monday">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_monday_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_monday_1"
+                style="@style/TimetableButtonStyle"
+                android:src="@drawable/ic_add_circle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_monday_1"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_monday_1"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_monday_2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginTop="@dimen/timetable_edits_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_monday_1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_monday_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_monday_2"
+                style="@style/TimetableButtonStyle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_monday_2"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_monday_2"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_monday_3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginTop="@dimen/timetable_edits_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_monday_2">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_monday_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_monday_3"
+                style="@style/TimetableButtonStyle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_monday_3"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_monday_3"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_monday_4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginTop="@dimen/timetable_edits_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_monday_3">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_monday_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_monday_4"
+                style="@style/TimetableButtonStyle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_monday_4"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_monday_4"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_monday_5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginTop="@dimen/timetable_edits_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_monday_4">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_monday_5"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_monday_5"
+                style="@style/TimetableButtonStyle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_monday_5"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_monday_5"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_monday_6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginTop="@dimen/timetable_edits_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_monday_5">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_monday_6"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_monday_6"
+                style="@style/TimetableButtonStyle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_monday_6"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_monday_6"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_monday_7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginTop="@dimen/timetable_edits_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_monday_6">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_monday_7"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_monday_7"
+                style="@style/TimetableButtonStyle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_monday_7"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_monday_7"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_monday_8"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginTop="@dimen/timetable_edits_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_monday_7">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_monday_8"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_monday_8"
+                style="@style/TimetableButtonStyle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_monday_8"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_monday_8"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+
+
+            <TextView
+                android:id="@+id/timetable_text_tuesday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/timetable_margin_day_edit_top"
+                android:layout_marginStart="@dimen/timetable_day_start_margin"
+                android:text="@string/text_tuesday"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_monday_8"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_tuesday_1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                android:layout_marginTop="@dimen/timetable_margin_day_edit_bottom"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toStartOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_tuesday">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_tuesday_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_tuesday_1"
+                style="@style/TimetableButtonStyle"
+                android:src="@drawable/ic_add_circle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_tuesday_1"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_tuesday_1"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_tuesday_2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginTop="@dimen/timetable_edits_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_tuesday_1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_tuesday_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_tuesday_2"
+                style="@style/TimetableButtonStyle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_tuesday_2"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_tuesday_2"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_tuesday_3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginTop="@dimen/timetable_edits_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_tuesday_2">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_tuesday_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_tuesday_3"
+                style="@style/TimetableButtonStyle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_tuesday_3"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_tuesday_3"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_tuesday_4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginTop="@dimen/timetable_edits_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_tuesday_3">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_tuesday_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_tuesday_4"
+                style="@style/TimetableButtonStyle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_tuesday_4"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_tuesday_4"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_tuesday_5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginTop="@dimen/timetable_edits_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_tuesday_4">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_tuesday_5"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_tuesday_5"
+                style="@style/TimetableButtonStyle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_tuesday_5"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_tuesday_5"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_tuesday_6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginTop="@dimen/timetable_edits_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_tuesday_5">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_tuesday_6"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_tuesday_6"
+                style="@style/TimetableButtonStyle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_tuesday_6"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_tuesday_6"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_tuesday_7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginTop="@dimen/timetable_edits_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_tuesday_6">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_tuesday_7"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_tuesday_7"
+                style="@style/TimetableButtonStyle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_tuesday_7"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_tuesday_7"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_tuesday_8"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginTop="@dimen/timetable_edits_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_tuesday_7">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_tuesday_8"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_tuesday_8"
+                style="@style/TimetableButtonStyle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_tuesday_8"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_tuesday_8"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+
+
+            <TextView
+                android:id="@+id/timetable_text_wednesday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/timetable_margin_day_edit_top"
+                android:layout_marginStart="@dimen/timetable_day_start_margin"
+                android:text="@string/text_wednesday"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_tuesday_8"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_wednesday_1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                android:layout_marginTop="@dimen/timetable_margin_day_edit_bottom"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toStartOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_wednesday">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_wednesday_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_wednesday_1"
+                style="@style/TimetableButtonStyle"
+                android:src="@drawable/ic_add_circle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_wednesday_1"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_wednesday_1"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_wednesday_2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginTop="@dimen/timetable_edits_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_wednesday_1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_wednesday_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_wednesday_2"
+                style="@style/TimetableButtonStyle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_wednesday_2"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_wednesday_2"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_wednesday_3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginTop="@dimen/timetable_edits_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_wednesday_2">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_wednesday_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_wednesday_3"
+                style="@style/TimetableButtonStyle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_wednesday_3"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_wednesday_3"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_wednesday_4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginTop="@dimen/timetable_edits_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_wednesday_3">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_wednesday_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_wednesday_4"
+                style="@style/TimetableButtonStyle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_wednesday_4"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_wednesday_4"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_wednesday_5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginTop="@dimen/timetable_edits_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_wednesday_4">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_wednesday_5"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_wednesday_5"
+                style="@style/TimetableButtonStyle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_wednesday_5"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_wednesday_5"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_wednesday_6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginTop="@dimen/timetable_edits_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_wednesday_5">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_wednesday_6"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_wednesday_6"
+                style="@style/TimetableButtonStyle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_wednesday_6"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_wednesday_6"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_wednesday_7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginTop="@dimen/timetable_edits_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_wednesday_6">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_wednesday_7"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_wednesday_7"
+                style="@style/TimetableButtonStyle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_wednesday_7"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_wednesday_7"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_wednesday_8"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginTop="@dimen/timetable_edits_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_wednesday_7">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_wednesday_8"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_wednesday_8"
+                style="@style/TimetableButtonStyle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_wednesday_8"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_wednesday_8"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+
+
+            <TextView
+                android:id="@+id/timetable_text_thursday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/timetable_margin_day_edit_top"
+                android:layout_marginStart="@dimen/timetable_day_start_margin"
+                android:text="@string/text_thursday"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_wednesday_8"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_thursday_1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                android:layout_marginTop="@dimen/timetable_margin_day_edit_bottom"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toStartOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_thursday">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_thursday_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_thursday_1"
+                style="@style/TimetableButtonStyle"
+                android:src="@drawable/ic_add_circle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_thursday_1"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_thursday_1"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_thursday_2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginTop="@dimen/timetable_edits_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_thursday_1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_thursday_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_thursday_2"
+                style="@style/TimetableButtonStyle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_thursday_2"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_thursday_2"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_thursday_3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginTop="@dimen/timetable_edits_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_thursday_2">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_thursday_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_thursday_3"
+                style="@style/TimetableButtonStyle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_thursday_3"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_thursday_3"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_thursday_4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginTop="@dimen/timetable_edits_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_thursday_3">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_thursday_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_thursday_4"
+                style="@style/TimetableButtonStyle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_thursday_4"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_thursday_4"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_thursday_5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginTop="@dimen/timetable_edits_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_thursday_4">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_thursday_5"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_thursday_5"
+                style="@style/TimetableButtonStyle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_thursday_5"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_thursday_5"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_thursday_6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginTop="@dimen/timetable_edits_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_thursday_5">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_thursday_6"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_thursday_6"
+                style="@style/TimetableButtonStyle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_thursday_6"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_thursday_6"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_thursday_7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginTop="@dimen/timetable_edits_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_thursday_6">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_thursday_7"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_thursday_7"
+                style="@style/TimetableButtonStyle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_thursday_7"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_thursday_7"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_thursday_8"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginTop="@dimen/timetable_edits_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_thursday_7">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_thursday_8"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_thursday_8"
+                style="@style/TimetableButtonStyle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_thursday_8"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_thursday_8"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+
+
+            <TextView
+                android:id="@+id/timetable_text_friday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/timetable_margin_day_edit_top"
+                android:layout_marginStart="@dimen/timetable_day_start_margin"
+                android:text="@string/text_friday"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_thursday_8"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_friday_1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                android:layout_marginTop="@dimen/timetable_margin_day_edit_bottom"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toStartOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_friday">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_friday_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_friday_1"
+                style="@style/TimetableButtonStyle"
+                android:src="@drawable/ic_add_circle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_friday_1"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_friday_1"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_friday_2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginTop="@dimen/timetable_edits_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_friday_1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_friday_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_friday_2"
+                style="@style/TimetableButtonStyle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_friday_2"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_friday_2"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_friday_3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginTop="@dimen/timetable_edits_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_friday_2">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_friday_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_friday_3"
+                style="@style/TimetableButtonStyle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_friday_3"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_friday_3"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_friday_4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginTop="@dimen/timetable_edits_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_friday_3">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_friday_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_friday_4"
+                style="@style/TimetableButtonStyle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_friday_4"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_friday_4"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_friday_5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginTop="@dimen/timetable_edits_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_friday_4">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_friday_5"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_friday_5"
+                style="@style/TimetableButtonStyle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_friday_5"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_friday_5"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_friday_6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginTop="@dimen/timetable_edits_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_friday_5">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_friday_6"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_friday_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TimetableButtonStyle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_friday_6"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_friday_6"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_friday_7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginTop="@dimen/timetable_edits_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_friday_6">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_friday_7"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_friday_7"
+                style="@style/TimetableButtonStyle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_friday_7"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_friday_7"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timetable_text_input_friday_8"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/timetable_edit_start_margin"
+                android:layout_marginTop="@dimen/timetable_edits_margin"
+                android:layout_marginEnd="@dimen/timetable_edit_end_margin"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_friday_7">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timetable_edit_text_friday_8"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/timetable_add_subj_butt_friday_8"
+                style="@style/TimetableButtonStyle"
+                app:layout_constraintTop_toTopOf="@id/timetable_text_input_friday_8"
+                app:layout_constraintBottom_toBottomOf="@id/timetable_text_input_friday_8"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                tools:visibility="visible"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/text_timetable_second_msg"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="12dp"
+                app:layout_constraintStart_toStartOf="@id/timetable_left_guideline"
+                app:layout_constraintEnd_toEndOf="@id/timetable_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/timetable_text_input_friday_8"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

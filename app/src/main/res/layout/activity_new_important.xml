@@ -2,8 +2,10 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ui.admin.NewImportantActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/new_imp_app_bar_layout"
@@ -15,7 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:title="@string/app_bar_new_imp"
-            app:menu="@menu/cr_imp_app_bar_menu"
+            app:titleTextColor="@color/colorOnAppBar"
+            app:menu="@menu/done_app_bar_menu"
             app:navigationIcon="@drawable/ic_arrow_back" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -44,7 +47,7 @@
             android:id="@+id/new_imp_first_msg"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
             android:text="@string/text_new_imp_first_msg"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@id/new_imp_left_guideline"
@@ -57,7 +60,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:hint="@string/text_name"
+            android:hint="@string/text_title"
+            app:counterEnabled="true"
+            app:counterMaxLength="50"
             app:layout_constraintStart_toStartOf="@id/new_imp_left_guideline"
             app:layout_constraintEnd_toEndOf="@id/new_imp_right_guideline"
             app:layout_constraintTop_toBottomOf="@id/new_imp_first_msg">
@@ -76,6 +81,8 @@
             android:layout_marginTop="16dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:hint="@string/text_message"
+            app:counterEnabled="true"
+            app:counterMaxLength="300"
             app:layout_constraintStart_toStartOf="@id/new_imp_left_guideline"
             app:layout_constraintEnd_toEndOf="@id/new_imp_right_guideline"
             app:layout_constraintTop_toBottomOf="@id/new_imp_text_input_lay_name">
@@ -86,6 +93,26 @@
                 android:layout_height="match_parent" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+<!--        <LinearLayout-->
+<!--            android:id="@+id/new_imp_chips_layout"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            android:layout_marginTop="12dp"-->
+<!--            app:layout_constraintStart_toStartOf="@id/new_imp_left_guideline"-->
+<!--            app:layout_constraintEnd_toEndOf="@id/new_imp_right_guideline"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/new_imp_text_input_lay_message">-->
+
+<!--            <com.google.android.material.chip.Chip-->
+<!--                android:id="@+id/new_imp_chip_send_notification"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                style="@style/Widget.MaterialComponents.Chip.Choice"-->
+<!--                app:chipIcon="@drawable/ic_notifications_active"-->
+<!--                android:text="@string/text_send_notification" />-->
+
+<!--        </LinearLayout>-->
 
         <TextView
             android:id="@+id/new_imp_second_msg"

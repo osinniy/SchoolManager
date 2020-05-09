@@ -1,135 +1,217 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_dz_container"
+    android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:paddingHorizontal="@dimen/card_padding"
+    android:paddingTop="@dimen/card_padding">
 
-    <LinearLayout
-        android:id="@+id/layout_subjects"
-        android:layout_width="wrap_content"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_item_dz"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingStart="16dp"
-        android:paddingTop="8dp"
-        android:paddingEnd="8dp"
-        android:paddingBottom="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:cardCornerRadius="@dimen/card_corner_radius"
+        app:strokeWidth="1dp"
+        app:strokeColor="@color/stroke_color"
+        app:cardElevation="0dp">
 
-        <TextView
-            android:id="@+id/title_1"
-            style="?itemTitle"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="1" />
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="8dp">
 
-        <TextView
-            android:id="@+id/title_2"
-            style="?itemTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxLines="1" />
+            <TextView
+                android:id="@+id/item_dz_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?textAppearanceHeadline6"
+                android:textStyle="bold"
+                android:text="@string/text_homework_for_tomorrow"/>
 
-        <TextView
-            android:id="@+id/title_3"
-            style="?itemTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:text="ты даун" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="8dp">
 
-        <TextView
-            android:id="@+id/title_4"
-            style="?itemTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxLines="1" />
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/item_dz_left_guideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="8dp" />
 
-        <TextView
-            android:id="@+id/title_5"
-            style="?itemTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxLines="1" />
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/item_dz_right_guideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_end="16dp"/>
 
-        <TextView
-            android:id="@+id/title_6"
-            style="?itemTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxLines="1" />
+                <TextView
+                    android:id="@+id/item_dz_subj_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/SubjectTextStyle"
+                    app:layout_constraintStart_toStartOf="@id/item_dz_left_guideline"
+                    app:layout_constraintBaseline_toBaselineOf="@id/item_dz_homework_1"
+                    tools:text="Алгебра"/>
 
-        <TextView
-            android:id="@+id/title_7"
-            style="?itemTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxLines="1" />
+                <TextView
+                    android:id="@+id/item_dz_homework_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/HomeworkTextStyle"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/item_dz_right_guideline"
+                    tools:text="урок 5"/>
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/item_dz_subj_2"
+                    android:layout_width="122dp"
+                    android:layout_height="43dp"
+                    style="@style/SubjectTextStyle"
+                    app:layout_constraintStart_toStartOf="@id/item_dz_left_guideline"
+                    app:layout_constraintBaseline_toBaselineOf="@id/item_dz_homework_2"
+                    tools:text="Образотворче мистецво" />
 
-    <LinearLayout
-        android:id="@+id/layout_assignments"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingStart="16dp"
-        android:paddingTop="8dp"
-        android:paddingEnd="8dp"
-        android:paddingBottom="8dp"
-        app:layout_constraintLeft_toRightOf="@id/layout_subjects"
-        app:layout_constraintTop_toTopOf="parent">
+                <TextView
+                    android:id="@+id/item_dz_homework_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/HomeworkTextStyle"
+                    app:layout_constraintTop_toBottomOf="@id/item_dz_homework_1"
+                    app:layout_constraintEnd_toEndOf="@id/item_dz_right_guideline"
+                    tools:text="https://google.com/ перейти за посиланням та подивитися відео"/>
 
-        <TextView
-            android:id="@+id/text_1"
-            style="?itemText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxLines="1" />
+                <TextView
+                    android:id="@+id/item_dz_subj_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/SubjectTextStyle"
+                    app:layout_constraintStart_toStartOf="@id/item_dz_left_guideline"
+                    app:layout_constraintBaseline_toBaselineOf="@id/item_dz_homework_3"
+                    tools:text="Геометрія"/>
 
-        <TextView
-            android:id="@+id/text_2"
-            style="?itemText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxLines="1" />
+                <TextView
+                    android:id="@+id/item_dz_homework_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/HomeworkTextStyle"
+                    app:layout_constraintTop_toBottomOf="@id/item_dz_homework_2"
+                    app:layout_constraintEnd_toEndOf="@id/item_dz_right_guideline"
+                    tools:text="https://yandex.ru/ перейти за посиланням та подивитися відео"/>
 
-        <TextView
-            android:id="@+id/text_3"
-            style="?itemText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxLines="1" />
+                <TextView
+                    android:id="@+id/item_dz_subj_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/SubjectTextStyle"
+                    app:layout_constraintStart_toStartOf="@id/item_dz_left_guideline"
+                    app:layout_constraintBaseline_toBaselineOf="@id/item_dz_homework_4"
+                    tools:text="Географія"/>
 
-        <TextView
-            android:id="@+id/text_4"
-            style="?itemText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxLines="1" />
+                <TextView
+                    android:id="@+id/item_dz_homework_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/HomeworkTextStyle"
+                    app:layout_constraintTop_toBottomOf="@id/item_dz_homework_3"
+                    app:layout_constraintEnd_toEndOf="@id/item_dz_right_guideline"
+                    tools:text="ст. 38 завдання 3, 4, 6"/>
 
-        <TextView
-            android:id="@+id/text_5"
-            style="?itemText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxLines="1" />
+                <TextView
+                    android:id="@+id/item_dz_subj_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/SubjectTextStyle"
+                    app:layout_constraintStart_toStartOf="@id/item_dz_left_guideline"
+                    app:layout_constraintBaseline_toBaselineOf="@id/item_dz_homework_5"
+                    tools:text="Англійська мова"/>
 
-        <TextView
-            android:id="@+id/text_6"
-            style="?itemText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxLines="1" />
+                <TextView
+                    android:id="@+id/item_dz_homework_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/HomeworkTextStyle"
+                    app:layout_constraintTop_toBottomOf="@id/item_dz_homework_4"
+                    app:layout_constraintEnd_toEndOf="@id/item_dz_right_guideline"
+                    tools:text="SB p. 143 ex. 2 - 5"/>
 
-        <TextView
-            android:id="@+id/text_7"
-            style="?itemText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxLines="1" />
+                <TextView
+                    android:id="@+id/item_dz_subj_6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/SubjectTextStyle"
+                    app:layout_constraintStart_toStartOf="@id/item_dz_left_guideline"
+                    app:layout_constraintBaseline_toBaselineOf="@id/item_dz_homework_6"
+                    tools:text="Фізика"/>
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/item_dz_homework_6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/HomeworkTextStyle"
+                    app:layout_constraintTop_toBottomOf="@id/item_dz_homework_5"
+                    app:layout_constraintEnd_toEndOf="@id/item_dz_right_guideline"
+                    tools:text="Бла бла бла бла бла бла бла бла бла бл абль ал а"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/item_dz_subj_7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/SubjectTextStyle"
+                    app:layout_constraintStart_toStartOf="@id/item_dz_left_guideline"
+                    app:layout_constraintBaseline_toBaselineOf="@id/item_dz_homework_7"
+                    tools:text="Правознавство"/>
+
+                <TextView
+                    android:id="@+id/item_dz_homework_7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/HomeworkTextStyle"
+                    app:layout_constraintTop_toBottomOf="@id/item_dz_homework_6"
+                    app:layout_constraintEnd_toEndOf="@id/item_dz_right_guideline"
+                    tools:text="Параграф 28 Адміністративне право. Виконати завдання на сторінці 125"/>
+
+                <TextView
+                    android:id="@+id/item_dz_subj_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/SubjectTextStyle"
+                    app:layout_constraintStart_toStartOf="@id/item_dz_left_guideline"
+                    app:layout_constraintBaseline_toBaselineOf="@id/item_dz_homework_8"
+                    tools:text="Фізра"/>
+
+                <TextView
+                    android:id="@+id/item_dz_homework_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/HomeworkTextStyle"
+                    app:layout_constraintTop_toBottomOf="@id/item_dz_homework_7"
+                    app:layout_constraintEnd_toEndOf="@id/item_dz_right_guideline"
+                    tools:text="Нічого"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/item_dz_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="8dp"
+                android:textAppearance="?textAppearanceCaption"
+                android:textColor="?android:textColorSecondary"
+                tools:text="Edited  30.04 16:42"/>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

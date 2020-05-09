@@ -1,19 +1,19 @@
 package com.osinniy.school.obj.timetable;
 
-import android.util.Log;
-
 import androidx.annotation.CheckResult;
+import androidx.collection.ArrayMap;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.osinniy.school.firebase.Docs;
 import com.osinniy.school.obj.options.UserOptions;
+import com.osinniy.school.utils.Util;
 
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.Map;
-
-import javax.annotation.Nullable;
 
 @SuppressWarnings("unchecked")
 public class Timetable {
@@ -24,44 +24,43 @@ public class Timetable {
     public static final String THURSDAY  = "Thursday";
     public static final String FRIDAY    = "Friday";
 
-    private static Map<String, String> monday;
-    private static Map<String, String> tuesday;
-    private static Map<String, String> wednesday;
-    private static Map<String, String> thursday;
-    private static Map<String, String> friday;
+    private static ArrayList<String> monday;
+    private static ArrayList<String> tuesday;
+    private static ArrayList<String> wednesday;
+    private static ArrayList<String> thursday;
+    private static ArrayList<String> friday;
 
 
-    public static void refresh() {
-        FirebaseFirestore.getInstance()
+    public static Task<DocumentSnapshot> refresh() {
+        return FirebaseFirestore.getInstance()
                 .collection(UserOptions.getCurrent().getGroupId())
                 .document(Docs.DOC_TIMETABLE)
                 .get()
                 .addOnSuccessListener(snapshot -> {
-                    monday = (Map<String, String>) snapshot.get(MONDAY);
-                    tuesday = (Map<String, String>) snapshot.get(TUESDAY);
-                    wednesday = (Map<String, String>) snapshot.get(WEDNESDAY);
-                    thursday = (Map<String, String>) snapshot.get(THURSDAY);
-                    friday = (Map<String, String>) snapshot.get(FRIDAY);
+                    monday = (ArrayList<String>) snapshot.get(MONDAY);
+                    tuesday = (ArrayList<String>) snapshot.get(TUESDAY);
+                    wednesday = (ArrayList<String>) snapshot.get(WEDNESDAY);
+                    thursday = (ArrayList<String>) snapshot.get(THURSDAY);
+                    friday = (ArrayList<String>) snapshot.get(FRIDAY);
                 })
-                .addOnFailureListener(e -> {
-                    Log.e(Docs.TAG_FIRESTORE_READ, "Timetable refreshing was failed: ", e);
-                    FirebaseCrashlytics.getInstance().log("Timetable refreshing was failed");
-                    FirebaseCrashlytics.getInstance().recordException(e);
-                });
+                .addOnFailureListener(e -> Util.logException("Timetable refreshing failed", e));
     }
 
-    public static void update() {
-        if (!UserOptions.getCurrent().isAdmin()) return;
+
+    public static Task<Void> push() {
+        if (!UserOptions.getCurrent().isAdmin())
+            throw new IllegalAccessError("Users cannot modify timetable");
 
         Map<String, Object> newData = getAll();
 
-        FirebaseFirestore.getInstance()
+        return FirebaseFirestore.getInstance()
                 .collection(UserOptions.getCurrent().getGroupId())
                 .document(Docs.DOC_TIMETABLE)
                 .update(newData);
     }
 
-    public static void setAll(Map<String, Map<String, String>> newData) {
+
+    public static void setAll(Map<String, ArrayList<String>> newData) {
         if (newData.containsKey(MONDAY)) monday = newData.get(MONDAY);
         if (newData.containsKey(TUESDAY)) tuesday = newData.get(TUESDAY);
         if (newData.containsKey(WEDNESDAY)) wednesday = newData.get(WEDNESDAY);
@@ -69,8 +68,9 @@ public class Timetable {
         if (newData.containsKey(FRIDAY)) friday = newData.get(FRIDAY);
     }
 
+
     public static Map<String, Object> getAll() {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new ArrayMap<>(5);
 
         map.put(MONDAY, monday);
         map.put(TUESDAY, tuesday);
@@ -81,10 +81,11 @@ public class Timetable {
         return map;
     }
 
-    @Nullable
+
     @CheckResult
-    public static Map<String, String> getToday() {
+    public static ArrayList<String> getFromDate(Date date) {
         Calendar c = Calendar.getInstance();
+        c.setTime(date);
         int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
         switch (dayOfWeek) {
             case Calendar.MONDAY: return monday;
@@ -96,23 +97,24 @@ public class Timetable {
         }
     }
 
-    public static Map<String, String> getMonday() {
+
+    public static ArrayList<String> getMonday() {
         return monday;
     }
 
-    public static Map<String, String> getTuesday() {
+    public static ArrayList<String> getTuesday() {
         return tuesday;
     }
 
-    public static Map<String, String> getWednesday() {
+    public static ArrayList<String> getWednesday() {
         return wednesday;
     }
 
-    public static Map<String, String> getThursday() {
+    public static ArrayList<String> getThursday() {
         return thursday;
     }
 
-    public static Map<String, String> getFriday() {
+    public static ArrayList<String> getFriday() {
         return friday;
     }
 

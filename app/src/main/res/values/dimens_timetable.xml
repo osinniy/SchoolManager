@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <dimen name="timetable_edits_margin">4dp</dimen>
+    <dimen name="timetable_day_start_margin">8dp</dimen>
+    <dimen name="timetable_edit_start_margin">16dp</dimen>
+    <dimen name="timetable_edit_end_margin">42dp</dimen>
+    <dimen name="timetable_margin_day_edit_bottom">12dp</dimen>
+    <dimen name="timetable_margin_day_edit_top">24dp</dimen>
+</resources>

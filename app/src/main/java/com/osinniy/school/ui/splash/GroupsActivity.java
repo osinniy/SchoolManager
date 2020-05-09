@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.text.Editable;
@@ -27,8 +28,7 @@ import com.osinniy.school.firebase.Docs;
 import com.osinniy.school.firebase.Factory;
 import com.osinniy.school.firebase.groups.GroupManager;
 import com.osinniy.school.obj.options.UserOptions;
-import com.osinniy.school.ui.admin.AdminActivity;
-import com.osinniy.school.ui.user.MainActivity;
+import com.osinniy.school.ui.MainActivity;
 import com.osinniy.school.utils.Schedulers;
 import com.osinniy.school.utils.Status;
 import com.osinniy.school.utils.Util;
@@ -37,11 +37,17 @@ import java.util.ArrayList;
 
 public class GroupsActivity extends AppCompatActivity {
 
+    private static final String IS_GROUP_CODES_DOWNLOADED = "groupCodesDownloaded";
+    public static final String GROUP_NAME_PREF = "groupName";
+
     Toolbar appBar;
+
+    SharedPreferences pref;
 
     @SuppressWarnings("unchecked")
     private Runnable downloadGroupCodesRunnable = () -> {
         Status.isGroupCodesDownloaded = false;
+        pref.edit().putBoolean(IS_GROUP_CODES_DOWNLOADED, Status.isGroupCodesDownloaded).apply();
         FirebaseFirestore.getInstance()
                 .document(Docs.REF_GROUP_CODES)
                 .get(Source.SERVER)
@@ -49,6 +55,7 @@ public class GroupsActivity extends AppCompatActivity {
                     Factory.getInstance().getGroupDao().groupCodes
                             = (ArrayList<String>) snapshot.get(Docs.GROUP_CODES_ARRAY);
                     Status.isGroupCodesDownloaded = true;
+                    pref.edit().putBoolean(IS_GROUP_CODES_DOWNLOADED, Status.isGroupCodesDownloaded).apply();
                 })
                 .addOnFailureListener(e -> {
                     if (Status.isOnline(this))
@@ -58,6 +65,7 @@ public class GroupsActivity extends AppCompatActivity {
 
     private BroadcastReceiver downloadCodesReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
+            Status.isGroupCodesDownloaded = pref.getBoolean(IS_GROUP_CODES_DOWNLOADED, false);
             if (Status.isGroupCodesDownloaded) return;
             if (intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false)) return;
 
@@ -74,6 +82,8 @@ public class GroupsActivity extends AppCompatActivity {
 
         ActivityStack.getInstance().add(this);
 
+        pref = getSharedPreferences(getString(R.string.pref_main), Context.MODE_PRIVATE);
+
         appBar = findViewById(R.id.groups_toolbar);
         appBar.setOnMenuItemClickListener(item -> {
             if (item.getItemId() == R.id.menu_join) {
@@ -89,19 +99,26 @@ public class GroupsActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 appBar.getMenu().findItem(R.id.menu_join).setEnabled(s.toString().length() == 6);
                 ((TextInputLayout) findViewById(R.id.edit_layout_group_code)).setErrorEnabled(false);
+                if (s.length() == 3) Schedulers.getHandler().post(downloadGroupCodesRunnable);
             }
         });
-
-        Schedulers.getHandler().post(downloadGroupCodesRunnable);
 
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(downloadCodesReceiver, filter);
     }
 
 
-    public void onJoinButtonClick(View v) {
-        if (Status.checkInternet(this, v)) return;
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Schedulers.getHandler().post(downloadGroupCodesRunnable);
+    }
 
+
+    public void onJoinButtonClick(View v) {
+        if (Status.checkInternet(this)) return;
+
+        Status.isGroupCodesDownloaded = pref.getBoolean(IS_GROUP_CODES_DOWNLOADED, false);
         if (!Status.isGroupCodesDownloaded) {
             Util.showToast(this, R.string.toast_sth_went_wrong_restart_app);
             return;
@@ -109,11 +126,12 @@ public class GroupsActivity extends AppCompatActivity {
 
         Runnable successfulEnterGroupRunnable = () -> {
             UserOptions.getCurrent().writeToShared(this);
-
-            if (UserOptions.getCurrent().isAdmin())
-                startActivity(new Intent(this, AdminActivity.class));
-            else
-                startActivity(new Intent(this, MainActivity.class));
+            Factory.getInstance().getGroupDao().getMetadata((data, e) -> {
+                if (data != null)
+                    pref.edit().putString(GROUP_NAME_PREF, data.getString(Docs.NAME)).apply();
+                pref = null;
+            });
+            startActivity(new Intent(this, MainActivity.class));
             finish();
         };
 

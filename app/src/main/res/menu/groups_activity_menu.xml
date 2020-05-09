@@ -2,6 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+<!--    FIXME: wrong color on light theme-->
     <item
         android:id="@+id/menu_join"
         android:title="@string/text_butt_join"

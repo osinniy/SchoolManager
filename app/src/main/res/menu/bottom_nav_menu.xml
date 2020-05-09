@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/ic_view_agenda_black"
+        android:icon="@drawable/ic_view_agenda"
         android:title="@string/nav_dashboard" />
 
     <item
@@ -13,7 +13,7 @@
 
     <item
         android:id="@+id/navigation_notifications"
-        android:icon="@drawable/ic_notifications_black"
+        android:icon="@drawable/ic_notifications"
         android:title="@string/nav_notifications" />
 
 </menu>

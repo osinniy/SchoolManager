@@ -1,26 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorPrimarySelected">#4B00D1</color>
-    <color name="colorAccent">#03DAC6</color>
-    <color name="colorAccentDark">#018786</color>
+    <color name="colorPrimaryVariant">#3700B3</color>
+    <color name="colorSecondary">#03DAC6</color>
+    <color name="colorSecondaryVariant">#018786</color>
+    <color name="colorBackground">#FFFFFF</color>
+    <color name="colorError">#B00020</color>
+    <color name="colorSurface">#FFFFFF</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="colorOnSecondary">#000000</color>
+    <color name="colorOnSurface">#000000</color>
+    <color name="colorOnBackground">#000000</color>
+    <color name="colorOnError">#FFFFFF</color>
+    <color name="colorOnAppBar">#FFFFFF</color>
+    <color name="colorOnAppBarDisabled">#80FFFFFF</color>
 
-    <color name="blueThemeColorPrimary">#304FFE</color>
-    <color name="blueThemeColorPrimaryDark">#0026CA</color>
-    <color name="blueThemeColorAccent">#40C4FF</color>
-    <color name="blueThemeColorAccentDark">#0094CC</color>
-    <color name="blueThemePrimaryText">#FFFFFF</color>
-    <color name="blueThemeSecondaryText">#000000</color>
-
-<!--    <color name="profile_color_primary">#26A69A</color>-->
-<!--    <color name="profile_color_primary_dark">#009688</color>-->
-<!--    <color name="profile_color_accent">#048B7A</color>-->
-<!--    <color name="profile_text_color">#FFFFFF</color>-->
-<!--    <color name="profile_username_text_color">#FFFFFF</color>-->
-
-    <color name="profile_color_primary">#FFFFFF</color>
-    <color name="profile_color_primary_dark">@color/colorPrimaryDark</color>
+    <color name="profile_color_primary">#DEFFFFFF</color>
+    <color name="profile_color_primary_dark">@color/colorPrimaryVariant</color>
     <color name="profile_color_accent">@color/colorPrimary</color>
     <color name="profile_main_text_color">#000000</color>
     <color name="profile_username_text_color">#FFFFFF</color>

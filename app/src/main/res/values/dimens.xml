@@ -1,13 +1,18 @@
 <resources>
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <dimen name="card_corner_radius">12dp</dimen>
+    <dimen name="card_corner_radius">8dp</dimen>
+    <dimen name="card_padding">12dp</dimen>
+
+    <dimen name="item_dz_subj_max_width">152dp</dimen>
+    <dimen name="item_dz_homework_max_width">196dp</dimen>
 
     <dimen name="line_view_width">150dp</dimen>
+
+    <dimen name="new_dz_edits_margin">4dp</dimen>
 
     <dimen name="create_new_group_margin_between_edits">24dp</dimen>
     <dimen name="create_new_group_edits_horizontal_margin">16dp</dimen>
 
     <dimen name="fab_menu_title_background_corner_radius">8dp</dimen>
+
 </resources>

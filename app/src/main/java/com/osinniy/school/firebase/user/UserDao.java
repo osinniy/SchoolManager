@@ -31,6 +31,11 @@ public class UserDao {
     }
 
 
+    public void deleteUser() {
+        fs.collection(Docs.COL_USERS).document(FirebaseAuth.getInstance().getUid()).delete();
+    }
+
+
     @NonNull
     public UserOptions getOptions() {
         return currentOptions;

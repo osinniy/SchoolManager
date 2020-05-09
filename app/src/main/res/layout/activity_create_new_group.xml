@@ -15,7 +15,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:title="@string/app_bar_create_group"
-            app:menu="@menu/create_new_group_activity_app_bar_menu"
+            app:titleTextColor="@color/colorOnAppBar"
+            app:menu="@menu/done_app_bar_menu"
             app:navigationIcon="@drawable/ic_arrow_back" />
 
     </com.google.android.material.appbar.AppBarLayout>
