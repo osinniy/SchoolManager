@@ -365,6 +365,9 @@ public class DashboardAdapter extends ListAdapter<Bindable, RecyclerView.ViewHol
         }
 
         private void setData(DZ dz) {
+            ArrayList<String> data = Timetable.getFromDate(dz.getTargetDate());
+            if (data == null) return;
+            if (data.size() == 0) return;
 //            fill text views
             for (int i = 0; i < dz.getHomework().size(); i++) {
                 subjectList.get(i).setText(

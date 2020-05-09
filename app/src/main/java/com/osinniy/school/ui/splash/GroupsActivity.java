@@ -130,9 +130,9 @@ public class GroupsActivity extends AppCompatActivity {
                 if (data != null)
                     pref.edit().putString(GROUP_NAME_PREF, data.getString(Docs.NAME)).apply();
                 pref = null;
+                startActivity(new Intent(this, MainActivity.class));
+                finish();
             });
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
         };
 
         String code = ((TextInputEditText) findViewById(R.id.edit_group_code)).getText().toString();

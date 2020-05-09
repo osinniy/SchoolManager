@@ -13,7 +13,7 @@
     <string name="text_profile_group">Группа:</string>
     <string name="text_profile_user">ID пользователя:</string>
     <string name="text_new_imp_first_msg">Добавьте новый блок с важной информацией заполнив поля ниже:</string>
-    <string name="text_timetable_second_msg">Чтобы сохранить данные, нажмите на кнопку в правом верхнем углу</string>
+    <string name="text_timetable_second_msg">Не стоит изменять расписание если вы уже добавили домашнее задание. Если вы сделаете это, вы можете потерять связь \'предмет - расписание\' у существующих блоков с домашним заданием</string>
     <string name="text_new_dz_first_msg">Эта страница позволяет вам публиковать домашнее задание пользователям. Сначала вам нужно выбрать дату</string>
     <string name="text_new_dz_second_msg">Вы можете добавить блок с домашним заданием на определенную дату. Пользователи увидят этот блок на главной странице  за день до этой даты</string>
     <string name="text_title">Заголовок (обязательно)</string>

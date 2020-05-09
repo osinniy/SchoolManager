@@ -304,6 +304,7 @@ public class TimetableActivity extends AppCompatActivity {
 //                hide previous edit and button
                 buttons.get(day).get(num - 1).setVisibility(GONE);
                 edits.get(day).get(num - 1).setVisibility(GONE);
+                edits.get(day).get(num - 1).getEditText().setText("");
 //                animate
                 TransitionManager.beginDelayedTransition(findViewById(R.id.timetable_container));
             });
@@ -352,10 +353,10 @@ public class TimetableActivity extends AppCompatActivity {
         edit.setText(data.get(number));
         edits.get(day).get(number).setVisibility(View.VISIBLE);
         buttons.get(day).get(number).setVisibility(View.VISIBLE);
-        if (number == data.size() - 1) {
-            buttons.get(day).get(0).setImageResource(R.drawable.ic_minus);
-            buttons.get(day).get(data.size() - 1).setImageResource(R.drawable.ic_add_circle);
-        }
+//        if (number == data.size() - 1) {
+//            buttons.get(day).get(0).setImageResource(R.drawable.ic_minus);
+//            buttons.get(day).get(data.size() - 1).setImageResource(R.drawable.ic_add_circle);
+//        }
     }
 
 

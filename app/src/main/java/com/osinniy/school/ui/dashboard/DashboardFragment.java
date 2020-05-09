@@ -152,8 +152,7 @@ public class DashboardFragment extends Fragment
             }, 2000);
         }
 
-        presenter.loadItems();
-        Timetable.refresh();
+        Timetable.refresh().addOnSuccessListener(snapshot -> presenter.loadItems());
 
         return v;
     }
@@ -166,9 +165,10 @@ public class DashboardFragment extends Fragment
             return;
         }
 
-        Timetable.refresh();
-        itemsList.clear();
-        presenter.loadItems();
+        Timetable.refresh().addOnSuccessListener(snapshot -> {
+            itemsList.clear();
+            presenter.loadItems();
+        });
     }
 
 
@@ -204,6 +204,9 @@ public class DashboardFragment extends Fragment
         if (loadingState[0]) {
             loadingState[0] = false;
             loadingState[1] = false;
+
+
+
             Collections.sort(itemsList, Bindables.BINDABLE_COMPARATOR);
             adapter.submitList(itemsList);
             adapter.notifyDataSetChanged();

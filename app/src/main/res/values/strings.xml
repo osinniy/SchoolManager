@@ -23,7 +23,7 @@
     <string name="text_new_imp_first_msg">Add a new block with important info by filling in the fields below:</string>
     <string name="text_new_imp_second_msg">Note that the group members will see only the last three blocks on the main page</string>
     <string name="text_timetable_first_msg">On this page you can edit timetable, which is used to add homework</string>
-    <string name="text_timetable_second_msg">To save data, click on the button in the top right corner</string>
+    <string name="text_timetable_second_msg">WARNING! Do not change timetable if you have already added your homework. If you do this, you may lose contact \'subject - schedule\' in existing block with homework</string>
     <string name="text_new_dz_first_msg">This page allows you post homework to users. You need select a date first</string>
     <string name="text_new_dz_second_msg">You can add a homework block on a specific date. Users can see this block on the main page one day before this date</string>
     <string name="text_title">Title (required)</string>
