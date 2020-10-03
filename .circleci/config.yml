@@ -10,4 +10,6 @@ jobs:
     steps:
       - checkout
       - run:
-          command: bash ./gradlew build
+          command: bash ./gradlew signingReport
+      - run:
+          command: bash ./gradlew assembleDebug
