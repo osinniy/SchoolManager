@@ -13,3 +13,5 @@ jobs:
           command: bash ./gradlew signingReport
       - run:
           command: bash ./gradlew assembleDebug
+      - run:
+          command: bash ./gradlew installDebug
