@@ -34,7 +34,7 @@ jobs:
           key: build-${{ hashFiles('**/build.gradle') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}
 
       - name: Build/Check
-        run: ./gradlew build check --continue --warning-mode all
+        run: bash ./gradlew build check --continue --warning-mode all
 
 
   unit-tests:
@@ -60,7 +60,7 @@ jobs:
           key: unit-tests-${{ hashFiles('**/build.gradle') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}
 
       - name: Unit Tests
-        run: ./gradlew testDebugUnitTest --warning-mode all
+        run: bash ./gradlew testDebugUnitTest --warning-mode all
 
 
   instrumentation-tests:
@@ -94,4 +94,4 @@ jobs:
         with:
           api-level: ${{ matrix.api-level }}
           arch: x86
-          script: ./gradlew connectedDebugAndroidTest --warning-mode all
+          script: bash ./gradlew connectedDebugAndroidTest --warning-mode all
