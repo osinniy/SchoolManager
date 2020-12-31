@@ -1,0 +1,97 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - '*'
+  workflow_dispatch:
+
+
+jobs:
+  build:
+    name: Build/Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v1
+
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 8
+
+      - name: Cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.gradle/caches/
+          key: build-${{ hashFiles('**/build.gradle') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}
+
+      - name: Build/Check
+        run: ./gradlew build check --continue --warning-mode all
+
+
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v1
+
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 8
+
+      - name: Cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.gradle/caches/
+          key: unit-tests-${{ hashFiles('**/build.gradle') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}
+
+      - name: Unit Tests
+        run: ./gradlew testDebugUnitTest --warning-mode all
+
+
+  instrumentation-tests:
+    name: Instrumentation Tests
+    runs-on: macOS-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: true
+      matrix:
+        api-level: [21, 23, 25, 27, 29]
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v1
+
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 8
+
+      - name: Cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.gradle/caches
+          key: instrumentation-tests-${{ hashFiles('**/build.gradle') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}
+
+      - name: Instrumentation Tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api-level }}
+          arch: x86
+          script: ./gradlew connectedDebugAndroidTest --warning-mode all
